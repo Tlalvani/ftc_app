@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -25,6 +26,8 @@ import java.util.Locale;
  * RB = Right Back
  * RF = Right Front
  */
+
+@TeleOp(name = "RR2Teleop", group = "RR2")  // @Autonomous(...) is the other common choice
 public class RR2Teleop extends OpMode {
 
     /* local OpMode members. */
@@ -76,6 +79,9 @@ public class RR2Teleop extends OpMode {
         robot.RF.setPower(right);
         robot.LB.setPower(left);
         robot.RB.setPower(right);
+        robot.Intake.setPower(gamepad1.right_trigger);
+        robot.Intake.setPower(-gamepad1.left_trigger);
+
 
 
 

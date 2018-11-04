@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -31,7 +32,7 @@ public class RR2HardwareDrivebase
 
 
     /* Public OpMode members. */
-    public DcMotor  LF, RF, LB, RB;
+    public DcMotor  LF, RF, LB, RB, Intake;
 
 
     /* local OpMode members. */
@@ -52,12 +53,15 @@ public class RR2HardwareDrivebase
         RB = hwMap.dcMotor.get("RB");
         RF = hwMap.dcMotor.get("RF");
         LF = hwMap.dcMotor.get("LF");
+        Intake = hwMap.dcMotor.get("Intake");
 
 
-        RB.setDirection(DcMotor.Direction.FORWARD);
-        RF.setDirection(DcMotor.Direction.FORWARD);
-        LB.setDirection(DcMotor.Direction.REVERSE);
-        LF.setDirection(DcMotor.Direction.REVERSE);
+        RB.setDirection(DcMotor.Direction.REVERSE);
+        RF.setDirection(DcMotor.Direction.REVERSE);
+        LB.setDirection(DcMotor.Direction.FORWARD);
+        LF.setDirection(DcMotor.Direction.FORWARD);
+        Intake.setDirection(DcMotor.Direction.REVERSE);
+
 
 
 
@@ -67,6 +71,7 @@ public class RR2HardwareDrivebase
         LB.setPower(0);
         RB.setPower(0);
         LF.setPower(0);
+        Intake.setPower(0);
 
 
         // Set all motors to run without encoders.
@@ -75,6 +80,7 @@ public class RR2HardwareDrivebase
        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
