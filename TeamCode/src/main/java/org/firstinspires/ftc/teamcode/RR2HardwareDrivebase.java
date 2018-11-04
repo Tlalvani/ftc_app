@@ -32,7 +32,7 @@ public class RR2HardwareDrivebase
 
 
     /* Public OpMode members. */
-    public DcMotor  LF, RF, LB, RB, Intake;
+    public DcMotor  LF, RF, LB, RB, Intake, Lift1, Lift2, Lift3;
 
 
     /* local OpMode members. */
@@ -54,12 +54,16 @@ public class RR2HardwareDrivebase
         RF = hwMap.dcMotor.get("RF");
         LF = hwMap.dcMotor.get("LF");
         Intake = hwMap.dcMotor.get("Intake");
+        Lift1 = hwMap.dcMotor.get("Lift1");
+        Lift2 = hwMap.dcMotor.get("Lift2");
+        Lift3 = hwMap.dcMotor.get("Lift3");
 
 
-        RB.setDirection(DcMotor.Direction.REVERSE);
-        RF.setDirection(DcMotor.Direction.REVERSE);
-        LB.setDirection(DcMotor.Direction.FORWARD);
-        LF.setDirection(DcMotor.Direction.FORWARD);
+
+        RB.setDirection(DcMotor.Direction.FORWARD);
+        RF.setDirection(DcMotor.Direction.FORWARD);
+        LB.setDirection(DcMotor.Direction.REVERSE);
+        LF.setDirection(DcMotor.Direction.REVERSE);
         Intake.setDirection(DcMotor.Direction.REVERSE);
 
 
@@ -72,6 +76,11 @@ public class RR2HardwareDrivebase
         RB.setPower(0);
         LF.setPower(0);
         Intake.setPower(0);
+        Lift1.setPower(0);
+        Lift2.setPower(0);
+        Lift3.setPower(0);
+
+
 
 
         // Set all motors to run without encoders.
@@ -82,10 +91,10 @@ public class RR2HardwareDrivebase
         RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-        LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 

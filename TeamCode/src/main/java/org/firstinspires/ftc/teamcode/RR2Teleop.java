@@ -65,11 +65,13 @@ public class RR2Teleop extends OpMode {
         float Ch3 = -gamepad1.left_stick_y;
 
 
-        // tank drive
-        // note that if y equal -1 then joystick is pushed all of the way forward.
         float right = Ch3 + Ch1;
-
         float left = Ch3 - Ch1;
+        float intake = gamepad1.right_trigger-gamepad1.left_trigger;
+
+        right = Range.clip(right, -1, 1);
+        left = Range.clip(left, -1, 1);
+        intake = Range.clip(intake, -1, 1);
 
 
         right = (float)robot.scaleInput(right);
@@ -79,7 +81,7 @@ public class RR2Teleop extends OpMode {
         robot.RF.setPower(right);
         robot.LB.setPower(left);
         robot.RB.setPower(right);
-        robot.Intake.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
+        robot.Intake.setPower(intake);
 
 
 
