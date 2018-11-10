@@ -120,43 +120,39 @@ public void initSensors() {
         robot.RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        robot.
+    }
+
+
+    public void LiftPosition(int liftposition){
+        robot.Lift1.setTargetPosition(liftposition);
+        robot.Lift2.setTargetPosition(liftposition);
+        robot.Lift3.setTargetPosition(liftposition);
+        robot.Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.Lift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 
 
     public void LiftPosition(int liftposition){
-        Lift1.setTargetPosition(liftposition);
-        Lift2.setTargetPosition(liftposition);
-        Lift3.setTargetPosition(liftposition);
-        Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Lift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.Lift1.setTargetPosition(liftposition);
+        robot.Lift2.setTargetPosition(liftposition);
+        robot.Lift3.setTargetPosition(liftposition);
+        robot.Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.Lift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 
     public void BusyLift(){
-        while (Lift1.isBusy() & Lift2.isBusy() & Lift3.isBusy()) {
-        }
-    }
-
-    public void LiftPosition(int liftposition){
-        Lift1.setTargetPosition(liftposition);
-        Lift2.setTargetPosition(liftposition);
-        Lift3.setTargetPosition(liftposition);
-        Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Lift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-    }
-
-    public void BusyLift(){
-        while (Lift1.isBusy() & Lift2.isBusy() & Lift3.isBusy()) {
+        while (robot.Lift1.isBusy() & robot.Lift2.isBusy() & robot.Lift3.isBusy()) {
         }
     }
     public void LiftWithEncoders(){
-        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCLDER);
+        robot.Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void Lift(double power)
