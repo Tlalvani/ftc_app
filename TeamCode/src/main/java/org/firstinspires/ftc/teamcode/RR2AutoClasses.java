@@ -131,6 +131,16 @@ public void initSensors() {
 
     }
 
+    public void Lift(double power)
+    {
+        robot.Lift1.setPower(power);
+        robot.Lift2.setPower(power);
+        robot.Lift3.setPower(power);
+    }
+
+
+
+
     void composeTelemetry() {
 
         // At the beginning of each telemetry update, grab a bunch of data

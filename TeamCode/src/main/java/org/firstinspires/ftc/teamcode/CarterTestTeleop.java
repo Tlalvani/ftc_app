@@ -30,7 +30,8 @@ public class CarterTestTeleop extends OpMode {
      * Code to run ONCE when the driver hits INIT
      */
     @Override
-    public void init() {
+    public void init()
+    {
 
         LB = hardwareMap.dcMotor.get("LB");
         LF = hardwareMap.dcMotor.get("LF");
@@ -51,7 +52,8 @@ public class CarterTestTeleop extends OpMode {
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
     @Override
-    public void init_loop() {
+    public void init_loop()
+    {
     }
 
     /*
