@@ -104,9 +104,11 @@ public class RR2Teleop extends OpMode {
         }
 
         if(gamepad2.left_bumper){
-            robot.arm(0.2);
+           // robot.arm(0.2);
+            robot.Dropper1.setPosition(0.2);
         } else if(gamepad2.right_bumper) {
-            robot.arm(0.8);
+           // robot.arm(0.8);
+            robot.Dropper2.setPosition(0.2);
         }
     }
 

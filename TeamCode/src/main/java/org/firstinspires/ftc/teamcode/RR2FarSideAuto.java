@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @Autonomous(name="TestAuto", group="Test")  // @Autonomous(...) is the other common choice
-public class TestAutoExample extends TestAutoClasses
+public class RR2FarSideAuto extends RR2AutoClasses
 {
 
 
@@ -20,12 +20,12 @@ public class TestAutoExample extends TestAutoClasses
     public void runOpMode() throws InterruptedException {
 initSensors();
 
-LiftWithEncoders();
+            LiftWithEncoders();
         waitForStart();
 
         if(opModeIsActive()) {
 
-            LiftTargetPosition(robot.LiftHang);
+            LiftPosition(robot.LiftHang);
             Lift(1);
             DriveTargetPosition(1120,1120,1120,1120);
             DrivebaseBusy();
