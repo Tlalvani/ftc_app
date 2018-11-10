@@ -22,7 +22,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class RR2HardwareDrivebase
 {
-
+    //Lift Values
+    double LiftMax = 112;
+    double LiftHang = 820;
+    double LiftMin = 0;
 
     //IMU VALUES
     double divisorforimu = 250.0;
