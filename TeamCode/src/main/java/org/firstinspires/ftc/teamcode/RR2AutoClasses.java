@@ -123,6 +123,42 @@ public void initSensors() {
 
     }
 
+
+    public void LiftPosition(int liftposition){
+        Lift1.setTargetPosition(liftposition);
+        Lift2.setTargetPosition(liftposition);
+        Lift3.setTargetPosition(liftposition);
+        Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Lift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
+    public void BusyLift(){
+        while (Lift1.isBusy() & Lift2.isBusy() & Lift3.isBusy()) {
+        }
+    }
+
+    public void LiftPosition(int liftposition){
+        Lift1.setTargetPosition(liftposition);
+        Lift2.setTargetPosition(liftposition);
+        Lift3.setTargetPosition(liftposition);
+        Lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Lift2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Lift3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
+    public void BusyLift(){
+        while (Lift1.isBusy() & Lift2.isBusy() & Lift3.isBusy()) {
+        }
+    }
+    public void LiftWithEncoders(){
+        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCLDER);
+    }
+
     public void Lift(double power)
     {
         robot.Lift1.setPower(power);
