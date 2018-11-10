@@ -35,6 +35,9 @@ public class RR2Teleop extends OpMode {
     private ElapsedTime period = new ElapsedTime();
     RR2HardwareDrivebase robot = new RR2HardwareDrivebase();
 
+    double aTogle = 0;
+    double DoorPosition = 0.2;
+
     /* Constructor */
     @Override
     public void init() {
@@ -91,6 +94,20 @@ public class RR2Teleop extends OpMode {
 
         telemetry.addData("Left: ", robot.LF.getPower());
         telemetry.addData("Right: ", robot.RF.getPower());
+        telemetry.addData("Door: ", DoorPosition);
+
+
+        if(gamepad2.a == true) {
+            robot.Door.setPosition(0.1);
+        } else {
+            robot.Door.setPosition(0.7);
+        }
+
+        if(gamepad2.left_bumper){
+            robot.arm(0.2);
+        } else if(gamepad2.right_bumper) {
+            robot.arm(0.8);
+        }
     }
 
     @Override
