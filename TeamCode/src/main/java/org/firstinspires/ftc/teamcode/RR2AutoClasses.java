@@ -95,14 +95,6 @@ public void initSensors() {
         robot.RB.setPower(rightpower);
     }
 
-    public void Strafe(double leftforwardpower, double rightforwardpower, double leftbackpower, double rightbackpower) {
-
-        robot.LF.setPower(leftforwardpower);
-        robot.RF.setPower(rightforwardpower);
-        robot.LB.setPower(leftbackpower);
-        robot.RB.setPower(rightbackpower);
-    }
-
     public void DriveTargetPosition(int LFpower, int LBpower, int RFpower, int RBpower){
         robot.LB.setTargetPosition(robot.LB.getCurrentPosition() + LBpower);
         robot.RB.setTargetPosition(robot.RB.getCurrentPosition() + RBpower);
