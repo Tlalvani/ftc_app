@@ -65,6 +65,9 @@ public class RR2HardwareDrivebase
         LB.setDirection(DcMotor.Direction.REVERSE);
         LF.setDirection(DcMotor.Direction.REVERSE);
         Intake.setDirection(DcMotor.Direction.REVERSE);
+        Lift1.setDirection(DcMotor.Direction.FORWARD);
+        Lift2.setDirection(DcMotor.Direction.REVERSE);
+        Lift3.setDirection(DcMotor.Direction.FORWARD);
 
 
 
