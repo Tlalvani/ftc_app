@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class RR2HardwareDrivebase
 {
     //Lift Values
-    double LiftMax = 1120;
+    double LiftMax = 112;
     double LiftHang = 820;
     double LiftMin = 0;
 
