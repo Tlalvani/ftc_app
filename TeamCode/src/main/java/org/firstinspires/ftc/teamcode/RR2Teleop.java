@@ -68,17 +68,17 @@ public class RR2Teleop extends OpMode {
         float Ch3 = -gamepad1.left_stick_y;
 
 
-        float right = Ch3 + Ch1;
-        float left = Ch3 - Ch1;
-        float intake = gamepad1.right_trigger-gamepad1.left_trigger;
+        float right = Ch3 - Ch1;
+        float left = Ch3 + Ch1;
+        float intake = gamepad1.right_trigger - gamepad1.left_trigger;
 
         right = Range.clip(right, -1, 1);
         left = Range.clip(left, -1, 1);
         intake = Range.clip(intake, -1, 1);
 
 
-        right = (float)robot.scaleInput(right);
-        left = (float)robot.scaleInput(left);
+        right = (float) robot.scaleInput(right);
+        left = (float) robot.scaleInput(left);
 
         robot.LF.setPower(left);
         robot.RF.setPower(right);
@@ -87,29 +87,51 @@ public class RR2Teleop extends OpMode {
         robot.Intake.setPower(intake);
 
 
+        if (gamepad2.b) {
+            robot.DoorClose();
+        }
+
+        if(gamepad2.a){
+            robot.DoorOpen();
+        }
+
+        if (gamepad2.left_bumper) {
+            robot.RetractArm();
+            //robot.Dropper1.setPosition(0.2);
+        } else if (gamepad2.right_bumper) {
+            robot.DeployArm();
+
+        }
+
+        if (gamepad2.dpad_left){
+            robot.latchOff();
+        } else if (gamepad2.dpad_right) {
+            robot.latchOn();
+        }
+
+        if (gamepad2.dpad_down) {
+            robot.autoLiftDown();
+        }
+
+        else if (gamepad2.dpad_up){
+           robot.autoLiftUp();
+        }
 
 
 
-
+        robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger));
+    /*    if (gamepad2.b) {
+            robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger));
+        } else {
+        robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) / 2);
+    } */
 
         telemetry.addData("Left: ", robot.LF.getPower());
         telemetry.addData("Right: ", robot.RF.getPower());
-        telemetry.addData("Door: ", DoorPosition);
+        telemetry.addData("Door: ", robot.Dropper1.getPosition());
+        telemetry.addData("Lift Encoders", robot.LiftCurrentPosition());
+        telemetry.update();
 
-
-        if(gamepad2.a == true) {
-            robot.Door.setPosition(0.1);
-        } else {
-            robot.Door.setPosition(0.7);
-        }
-
-        if(gamepad2.left_bumper){
-           // robot.arm(0.2);
-            robot.Dropper1.setPosition(0.2);
-        } else if(gamepad2.right_bumper) {
-           // robot.arm(0.8);
-            robot.Dropper2.setPosition(0.2);
-        }
     }
 
     @Override

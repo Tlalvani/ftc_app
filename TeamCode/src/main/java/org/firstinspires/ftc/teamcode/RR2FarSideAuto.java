@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="TestAuto", group="Test")  // @Autonomous(...) is the other common choice
+@Autonomous(name="RR2FarSideAuto", group="Test")  // @Autonomous(...) is the other common choice
 public class RR2FarSideAuto extends RR2AutoClasses
 {
 
@@ -20,13 +20,13 @@ public class RR2FarSideAuto extends RR2AutoClasses
     public void runOpMode() throws InterruptedException {
 initSensors();
 
-            LiftWithEncoders();
+            robot.LiftWithEncoders();
         waitForStart();
 
         if(opModeIsActive()) {
 
-            LiftPosition(robot.LiftHang);
-            Lift(1);
+            robot.LiftPosition(robot.LiftHang);
+            robot.Lift(1);
             DriveTargetPosition(1120,1120,1120,1120);
             DrivebaseBusy();
             Drive(1,1);
