@@ -63,6 +63,7 @@ abstract public class RR2AutoClasses extends LinearOpMode
 //FUNCTIONS
 
 public void initSensors() {
+        robot.init(hardwareMap);
 
     // Set up the parameters with which we will use our IMU. Note that integration
     // algorithm here just reports accelerations to the logcat log; it doesn't actually

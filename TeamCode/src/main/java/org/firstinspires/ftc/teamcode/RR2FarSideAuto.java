@@ -20,16 +20,28 @@ public class RR2FarSideAuto extends RR2AutoClasses
     public void runOpMode() throws InterruptedException {
 initSensors();
 
-            robot.LiftWithEncoders();
+   //         robot.LiftWithEncoders();
         waitForStart();
 
         if(opModeIsActive()) {
-
+/*
             robot.LiftPosition(robot.LiftHang);
             robot.Lift(1);
             DriveTargetPosition(1120,1120,1120,1120);
             DrivebaseBusy();
-            Drive(1,1);
+            Drive(1,1); */
+
+            DriveTargetPosition(500,500,500,500);
+            DriveTargetPosition(-1920,-1920,1920,1920);
+            Drive(.75,.75);
+            DrivebaseBusy();
+            Drive(0,0);
+            DriveTargetPosition(-2500,-2500,-2500,-2500);
+            Drive(.65,.65);
+            DrivebaseBusy();
+            Drive(0,0);
+            robot.DeployArm();
+            sleep(100000);
         }
 
     }

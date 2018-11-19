@@ -35,8 +35,6 @@ public class RR2Teleop extends OpMode {
     private ElapsedTime period = new ElapsedTime();
     RR2HardwareDrivebase robot = new RR2HardwareDrivebase();
 
-    double aTogle = 0;
-    double DoorPosition = 0.2;
 
     /* Constructor */
     @Override
@@ -97,10 +95,11 @@ public class RR2Teleop extends OpMode {
 
         if (gamepad2.left_bumper) {
             robot.RetractArm();
-            //robot.Dropper1.setPosition(0.2);
         } else if (gamepad2.right_bumper) {
             robot.DeployArm();
-
+        }
+        else if (gamepad2.y){
+            robot.DeployArmFurther();
         }
 
         if (gamepad2.dpad_left){
@@ -109,17 +108,17 @@ public class RR2Teleop extends OpMode {
             robot.latchOn();
         }
 
-        if (gamepad2.dpad_down) {
+        if (gamepad2.dpad_down||gamepad1.dpad_down) {
             robot.autoLiftDown();
         }
 
-        else if (gamepad2.dpad_up){
+        else if (gamepad2.dpad_up||gamepad1.dpad_up){
            robot.autoLiftUp();
         }
 
+        else{robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger));}
 
 
-        robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger));
     /*    if (gamepad2.b) {
             robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger));
         } else {

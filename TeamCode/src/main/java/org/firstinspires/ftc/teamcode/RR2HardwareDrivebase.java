@@ -20,16 +20,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 2000;
+    int LiftMax = 1700;
     int LiftHang = 820;
     int LiftMin = 0;
 
     //IMU VALUES
     double divisorforimu = 250.0;
-    double maxspeedimu = .25;
-    double minspeedimu = .045;
+    double maxspeedimu = 1;
+    double minspeedimu = .75;
     double currentangle = 0;
-    double AngleTolerance = 2.2;
+    double AngleTolerance = 3;
 
     boolean LiftingUp;
     boolean LiftingDown;
@@ -94,11 +94,19 @@ public class RR2HardwareDrivebase {
         RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        Lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Lift3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -156,8 +164,12 @@ public class RR2HardwareDrivebase {
         arm(0.7, 0.3);
     }
 
+    public void DeployArmFurther(){
+        arm(0.83, 0.17);
+    }
+
     public void RetractArm() {
-        arm(0.15, 0.85);
+        arm(0.17, 0.83);
     }
 
     public void latchOn() {
@@ -169,26 +181,11 @@ public class RR2HardwareDrivebase {
     }
 
     public void autoLiftUp() {
-        if (LiftCurrentPosition() < 1900) {
-            LiftingUp = true;
-        } else {
-            LiftingUp = false;
-        }
 
-     /*   if(LiftingUp) {
+        if (LiftCurrentPosition() < LiftMax-50) {
             DoorClose();
-            LiftPosition(LiftMax);
-            Lift(.75);
-            if (Lift1.isBusy() & Lift2.isBusy() & Lift3.isBusy()) {
-                if (LiftCurrentPosition() > LiftMax / 2) {
-                    DeployArm();
-                }
-            } */
-
-        if (LiftingUp) {
-            DoorClose();
-            Lift(.75);
-            if (LiftCurrentPosition() > LiftMax / 2) {
+            Lift(.65);
+            if (LiftCurrentPosition() > LiftMax / 2  && LiftCurrentPosition() < LiftMax / 1.5 ) {
                 DeployArm();
             }
 
@@ -199,15 +196,16 @@ public class RR2HardwareDrivebase {
 
 
     public void autoLiftDown() {
-        LiftPosition(LiftMin);
-        Lift(-.75);
-        if (Lift1.isBusy() & Lift2.isBusy() & Lift3.isBusy()) {
+        if (LiftCurrentPosition() > LiftMin) {
+            Lift(-.65);
             if (LiftCurrentPosition() < LiftMax / 2) {
                 RetractArm();
+                DoorOpen();
             }
+
+        } else {
+            Lift(0);
         }
-        Lift(0);
-        DoorOpen();
     }
 
     double scaleInput(double dVal) {
