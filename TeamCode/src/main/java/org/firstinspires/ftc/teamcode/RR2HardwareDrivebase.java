@@ -20,7 +20,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 1700;
+    int LiftMax = 3200;
     int LiftHang = 820;
     int LiftMin = 0;
 
@@ -184,7 +184,7 @@ public class RR2HardwareDrivebase {
 
         if (LiftCurrentPosition() < LiftMax-50) {
             DoorClose();
-            Lift(.65);
+            Lift(1);
             if (LiftCurrentPosition() > LiftMax / 2  && LiftCurrentPosition() < LiftMax / 1.5 ) {
                 DeployArm();
             }
@@ -197,7 +197,7 @@ public class RR2HardwareDrivebase {
 
     public void autoLiftDown() {
         if (LiftCurrentPosition() > LiftMin) {
-            Lift(-.65);
+            Lift(-1);
             if (LiftCurrentPosition() < LiftMax / 2) {
                 RetractArm();
                 DoorOpen();

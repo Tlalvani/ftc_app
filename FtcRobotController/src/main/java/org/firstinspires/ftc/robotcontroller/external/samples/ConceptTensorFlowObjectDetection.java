@@ -50,7 +50,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
 public class ConceptTensorFlowObjectDetection extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -68,12 +67,12 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private static final String VUFORIA_KEY = " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+    private static final String VUFORIA_KEY = "AQ1tlcD/////AAAAGRLEkzGzT0sYgkhLh3O6Cjhuoou33OTI6epFheHt5Z2PNONhSNV2gkYn4I6mbQl1Y5sCbDujM6y+LDzW5LGItvPr8j7I7FuJwaaNwVmlIIRnSoovrFUOxyIesal5kxy0AaKNZgn2Rk9XIe3TSaqnu2Uw0hpofDbHQ+EVEPVIywcJcaLtpwklBQdg7s8SxRwjKHcwYGBGwe1xymCE+lhaAOzcsChgzhL9yOcQlXeXYfNA2jHec60FSB2yObxArbMIUuTHu+oTLS1ovFMj8kgUvvP9JTd+XGBv4QGEy6qVG+yGKoMkuF8MDGBdDlCFdfnnzTxbHWyFCe7r4EuRMa3Z6MbHGIr2tEdJJRgoGCnRITzf";
 
-    /**
-     * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
-     * localization engine.
-     */
+/**
+ * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
+ * localization engine.
+ */
     private VuforiaLocalizer vuforia;
 
     /**
@@ -156,7 +155,7 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CameraDirection.BACK;
+        parameters.cameraDirection = CameraDirection.FRONT;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
