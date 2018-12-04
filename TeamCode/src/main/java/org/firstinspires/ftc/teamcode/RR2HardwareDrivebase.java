@@ -98,15 +98,20 @@ public class RR2HardwareDrivebase {
         Lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Lift3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
+/*
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
 
         Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

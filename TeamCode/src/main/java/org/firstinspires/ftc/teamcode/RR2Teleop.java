@@ -125,8 +125,10 @@ public class RR2Teleop extends OpMode {
         robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) / 2);
     } */
 
-        telemetry.addData("Left: ", robot.LF.getPower());
-        telemetry.addData("Right: ", robot.RF.getPower());
+        telemetry.addData("LF: ", robot.LF.getPower());
+        telemetry.addData("LB: ", robot.LB.getPower());
+        telemetry.addData("RF: ", robot.RF.getPower());
+        telemetry.addData("RB: ", robot.RB.getPower());
         telemetry.addData("Door: ", robot.Dropper1.getPosition());
         telemetry.addData("Lift Encoders", robot.LiftCurrentPosition());
         telemetry.update();
