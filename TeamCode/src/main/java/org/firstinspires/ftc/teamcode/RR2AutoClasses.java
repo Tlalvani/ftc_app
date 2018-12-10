@@ -210,6 +210,43 @@ public void initSensors() {
         telemetry.update();
         double leftSpeedt; //Power to feed the motors
         double rightSpeedt;
+        double Z = angles.firstAngle;
+
+        while (angles.firstAngle < (degrees - robot.AngleTolerance) || angles.firstAngle > (degrees + robot.AngleTolerance) & opModeIsActive()) {
+            // position turns left, think of a x,y coordinate system
+            telemetry.update();
+
+            leftSpeedt = -((degrees - angles.firstAngle) / robot.divisorforimu);  //Calculate speed for each side
+            rightSpeedt = ((degrees - angles.firstAngle) / robot.divisorforimu);  //See Gyro Straight video for detailed explanation
+
+            telemetry.update();
+            if (leftSpeedt > 0) {
+                leftSpeedt = Range.clip(leftSpeedt, robot.minspeedimu, robot.maxspeedimu); }
+            else if (leftSpeedt < 0) {
+                leftSpeedt = Range.clip(leftSpeedt, -(robot.maxspeedimu), -(robot.minspeedimu)); }
+
+
+
+            if (rightSpeedt > 0) {
+                rightSpeedt = Range.clip(rightSpeedt, robot.minspeedimu, robot.maxspeedimu); }
+            else if (rightSpeedt < 0) {
+                rightSpeedt = Range.clip(rightSpeedt, -(robot.maxspeedimu), -(robot.minspeedimu)); }
+            telemetry.update();
+            telemetry.update();
+            Drive(leftSpeedt, rightSpeedt);
+            telemetry.update();
+
+            idle();
+        }
+        Drive(0,0);
+
+    }
+
+
+    public void oneeightyimu(double degrees){
+        telemetry.update();
+        double leftSpeedt; //Power to feed the motors
+        double rightSpeedt;
 
         double Z = angles.firstAngle;
 

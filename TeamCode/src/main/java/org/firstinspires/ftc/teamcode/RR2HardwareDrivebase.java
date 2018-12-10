@@ -20,19 +20,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 3200;
+    int LiftMax = 1800;
     int LiftHang = 820;
     int LiftMin = 0;
 
     //IMU VALUES
-    double divisorforimu = 250.0;
-    double maxspeedimu = 1;
-    double minspeedimu = .75;
+    double divisorforimu = 2500.0;
+    double maxspeedimu = .08;
+    double minspeedimu = .06;
     double currentangle = 0;
-    double AngleTolerance = 3;
+    double AngleTolerance = 2;
 
     boolean LiftingUp;
     boolean LiftingDown;
+    boolean ArmFurther;
     /* Public OpMode members. */
     public DcMotor LF, RF, LB, RB, Intake, Lift1, Lift2, Lift3;
     public Servo Door, Dropper1, Dropper2, HangLatch;
@@ -104,7 +105,7 @@ public class RR2HardwareDrivebase {
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
 
-        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -156,6 +157,9 @@ public class RR2HardwareDrivebase {
         Door.setPosition(1);
     }
 
+    public void DoorRamp(){
+        Door.setPosition(0.3);
+    }
     public void DoorClose() {
         Door.setPosition(0);
     }
@@ -174,15 +178,15 @@ public class RR2HardwareDrivebase {
     }
 
     public void RetractArm() {
-        arm(0.17, 0.83);
+        arm(0.15, 0.85);
     }
 
     public void latchOn() {
-        HangLatch.setPosition(0);
+        HangLatch.setPosition(0.8);
     }
 
     public void latchOff() {
-        HangLatch.setPosition(1);
+        HangLatch.setPosition(.5);
     }
 
     public void autoLiftUp() {
@@ -199,11 +203,18 @@ public class RR2HardwareDrivebase {
         }
     }
 
+public void hangLiftUp(){
+    if (LiftCurrentPosition() < 980) {
+        Lift(1);
 
+    } else {
+        Lift(0);
+    }
+}
     public void autoLiftDown() {
         if (LiftCurrentPosition() > LiftMin) {
             Lift(-1);
-            if (LiftCurrentPosition() < LiftMax / 2) {
+            if (LiftCurrentPosition() < LiftMax / 1.5) {
                 RetractArm();
                 DoorOpen();
             }

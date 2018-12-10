@@ -85,20 +85,25 @@ public class RR2Teleop extends OpMode {
         robot.Intake.setPower(intake);
 
 
-        if (gamepad2.b) {
+        if (gamepad2.b || gamepad1.b) {
             robot.DoorClose();
         }
 
-        if(gamepad2.a){
-            robot.DoorOpen();
+        if(gamepad2.a || gamepad1.a){
+            if(!robot.ArmFurther) {
+                robot.DoorOpen();}
+            else{robot.DoorRamp();}
         }
 
         if (gamepad2.left_bumper) {
             robot.RetractArm();
+            robot.ArmFurther = false;
         } else if (gamepad2.right_bumper) {
             robot.DeployArm();
+            robot.ArmFurther = false;
         }
-        else if (gamepad2.y){
+        else if (gamepad2.y|| gamepad1.y){
+           robot.ArmFurther = true;
             robot.DeployArmFurther();
         }
 
@@ -114,6 +119,10 @@ public class RR2Teleop extends OpMode {
 
         else if (gamepad2.dpad_up||gamepad1.dpad_up){
            robot.autoLiftUp();
+        }
+
+        else if(gamepad2.x || gamepad1.x){
+            robot.hangLiftUp();
         }
 
         else{robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) /* * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger)*/);}

@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name="RR2NearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
-public class RR2NearSideAuto extends RR2AutoClasses
+@Autonomous(name="RR2UnlatchAuto", group="Test")  // @Autonomous(...) is the other common choice
+public class RR2UnlatchAuto extends RR2AutoClasses
 {
 
 
@@ -27,8 +27,8 @@ initSensors();
             robot.RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             robot.RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             robot.LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-robot.latchOff();
-robot.hangLiftUp();
+        robot.latchOff();
+        robot.hangLiftUp();
             //imu(90);
   /*          DriveTargetPosition(3150,3150,3150,3150);
             Drive(.65,.65);
