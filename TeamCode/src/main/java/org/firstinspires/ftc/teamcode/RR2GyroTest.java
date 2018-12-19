@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name="RR2NearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
-public class RR2NearSideAuto extends RR2AutoClasses
+@Autonomous(name="RR2GyroTest", group="Test")  // @Autonomous(...) is the other common choice
+public class RR2GyroTest extends RR2AutoClasses
 {
 
 
@@ -33,32 +33,8 @@ DetectMineral();
 
 
 
-            DriveTargetPosition(200,200,200,200);
-            Drive(.2,.2);
-            DrivebaseBusy();
-            Drive(0,0);
-            sleep(1000);
-            imu(65);
-            DriveTargetPosition(2000,2000,2000,2000);
-            Drive(.2,.2);
-            DrivebaseBusy();
-            Drive(0,0);
-            sleep(1000);
-            imu(-39);
-          DriveTargetPosition(1800,1800,1800,1800);
-            Drive(.4,.4);
-            DrivebaseBusy();
-            Drive(0,0);
-            robot.Intake.setPower(-1);
-            sleep(2000);
-            robot.Intake.setPower(0);
-            DriveTargetPosition(-3500,-3500,-3500,-3500);
-            Drive(.65,.65);
-            DrivebaseBusy();
-            Drive(0,0);
-            robot.DeployArm();
-            sleep(100000);
 
+            imu(-45);
             /*
             DriveTargetPosition(-500,-500,500,500);
             Drive(.75,.75);

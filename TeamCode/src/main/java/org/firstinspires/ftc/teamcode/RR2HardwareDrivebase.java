@@ -21,22 +21,22 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class RR2HardwareDrivebase {
     //Lift Values
     int LiftMax = 1800;
-    int LiftHang = 820;
+    int LiftHang = 620;
     int LiftMin = 0;
 
     //IMU VALUES
-    double divisorforimu = 2500.0;
-    double maxspeedimu = .08;
-    double minspeedimu = .06;
+    double divisorforimu = 20.0;
+    double maxspeedimu = .4;
+    double minspeedimu = .3;
     double currentangle = 0;
-    double AngleTolerance = 2;
+    double AngleTolerance = 1;
 
     boolean LiftingUp;
     boolean LiftingDown;
     boolean ArmFurther;
     /* Public OpMode members. */
     public DcMotor LF, RF, LB, RB, Intake, Lift1, Lift2, Lift3;
-    public Servo Door, Dropper1, Dropper2, HangLatch;
+    public Servo Door, Dropper1, Dropper2, HangLatch, Hook;
 
 
     /* local OpMode members. */
@@ -65,6 +65,7 @@ public class RR2HardwareDrivebase {
         Dropper1 = hwMap.servo.get("Dropper1");
         Dropper2 = hwMap.servo.get("Dropper2");
         HangLatch = hwMap.servo.get("HangLatch");
+        Hook = hwMap.servo.get("Hook");
 
 
         RB.setDirection(DcMotor.Direction.REVERSE);
@@ -204,7 +205,7 @@ public class RR2HardwareDrivebase {
     }
 
 public void hangLiftUp(){
-    if (LiftCurrentPosition() < 980) {
+    if (LiftCurrentPosition() < LiftHang) {
         Lift(1);
 
     } else {

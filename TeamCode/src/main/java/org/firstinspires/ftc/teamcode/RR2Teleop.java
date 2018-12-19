@@ -123,9 +123,13 @@ public class RR2Teleop extends OpMode {
 
         else if(gamepad2.x || gamepad1.x){
             robot.hangLiftUp();
+            robot.Hook.setPosition(0);
+
         }
 
-        else{robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) /* * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger)*/);}
+        else{robot.Lift(gamepad2.right_trigger - gamepad2.left_trigger);
+        robot.Hook.setPosition(1);
+        }
 
 
     /*    if (gamepad2.b) {
@@ -134,10 +138,10 @@ public class RR2Teleop extends OpMode {
         robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) / 2);
     } */
 
-        telemetry.addData("LF: ", robot.LF.getPower());
-        telemetry.addData("LB: ", robot.LB.getPower());
-        telemetry.addData("RF: ", robot.RF.getPower());
-        telemetry.addData("RB: ", robot.RB.getPower());
+        telemetry.addData("LF: ", robot.LF.getCurrentPosition());
+        telemetry.addData("LB: ", robot.LB.getCurrentPosition());
+        telemetry.addData("RF: ", robot.RF.getCurrentPosition());
+        telemetry.addData("RB: ", robot.RB.getCurrentPosition());
         telemetry.addData("Door: ", robot.Dropper1.getPosition());
         telemetry.addData("Lift Encoders", robot.LiftCurrentPosition());
         telemetry.update();
