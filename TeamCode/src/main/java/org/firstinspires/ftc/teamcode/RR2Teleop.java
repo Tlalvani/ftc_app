@@ -113,12 +113,14 @@ public class RR2Teleop extends OpMode {
             robot.latchOn();
         }
 
-        if (gamepad2.dpad_down||gamepad1.dpad_down) {
+        if (gamepad2.dpad_down||gamepad1.left_bumper) {
             robot.autoLiftDown();
+            robot.ArmFurther = false;
         }
 
-        else if (gamepad2.dpad_up||gamepad1.dpad_up){
+        else if (gamepad2.dpad_up||gamepad1.right_bumper){
            robot.autoLiftUp();
+            robot.ArmFurther = false;
         }
 
         else if(gamepad2.x || gamepad1.x){

@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class RR2HardwareDrivebase {
     //Lift Values
     int LiftMax = 1800;
-    int LiftHang = 620;
+    int LiftHang = 690;
     int LiftMin = 0;
 
     //IMU VALUES
@@ -183,11 +183,11 @@ public class RR2HardwareDrivebase {
     }
 
     public void latchOn() {
-        HangLatch.setPosition(0.8);
+        HangLatch.setPosition(0.1);
     }
 
     public void latchOff() {
-        HangLatch.setPosition(.5);
+        HangLatch.setPosition(0.4);
     }
 
     public void autoLiftUp() {

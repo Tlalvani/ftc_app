@@ -29,7 +29,12 @@ initSensors();
             robot.LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.latchOff();
         sleep(3000);
-        robot.hangLiftUp();
+
+       robot.LiftPosition(robot.LiftHang);
+       robot.Lift(.5);
+       BusyLift();
+       robot.Lift(0);
+
         sleep(1000);
             robot.Hook.setPosition(0);
             //imu(90);
