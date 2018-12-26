@@ -20,11 +20,15 @@ public class RR2FarSideAuto extends RR2AutoClasses
     public void runOpMode() throws InterruptedException {
 initSensors();
 DetectMineral();
+robot.latchOn();
 
    //         robot.LiftWithEncoders();
         waitForStart();
 
-        if(opModeIsActive()) {
+        while(opModeIsActive()) {
+
+            Unlatch();
+
             DriveTargetPosition(600,600,600,600);
             Drive(.2,.2);
             DrivebaseBusy();

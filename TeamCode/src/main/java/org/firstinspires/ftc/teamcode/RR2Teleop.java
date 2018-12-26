@@ -123,7 +123,7 @@ public class RR2Teleop extends OpMode {
             robot.ArmFurther = false;
         }
 
-        else if(gamepad2.x || gamepad1.x){
+        else if(gamepad2.x || gamepad1.dpad_up){
             robot.hangLiftUp();
             robot.Hook.setPosition(0);
 

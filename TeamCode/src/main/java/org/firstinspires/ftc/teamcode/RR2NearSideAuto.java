@@ -15,7 +15,8 @@ public class RR2NearSideAuto extends RR2AutoClasses
     public void runOpMode() throws InterruptedException {
 initSensors();
 DetectMineral();
-   //         robot.LiftWithEncoders();
+robot.latchOn();
+
         waitForStart();
 
         if(opModeIsActive()) {

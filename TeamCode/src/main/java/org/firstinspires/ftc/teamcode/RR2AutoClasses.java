@@ -89,13 +89,15 @@ abstract public class RR2AutoClasses extends LinearOpMode {
      * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
      * Detection engine.
      */
-    private TFObjectDetector tfod;
+    public TFObjectDetector tfod;
 
 
 //FUNCTIONS
 
     public void initSensors() {
         robot.init(hardwareMap);
+
+
 
         // Set up the parameters with which we will use our IMU. Note that integration
         // algorithm here just reports accelerations to the logcat log; it doesn't actually
@@ -168,6 +170,17 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         }
     }
 
+
+    public void Unlatch(){
+        robot.latchOff();
+        sleep(1500);
+        robot.LiftPosition(robot.LiftHang);
+        robot.Lift(.5);
+        BusyLift();
+        robot.Lift(0);
+        sleep(500);
+        robot.Hook.setPosition(0);
+    }
 
     void composeTelemetry() {
 
@@ -388,13 +401,16 @@ abstract public class RR2AutoClasses extends LinearOpMode {
                     if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                         if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left"); //1
+                            telemetry.addData("Value:", value);
                             value = 1;
                         } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Right"); //2
                             value = 2;
+                            telemetry.addData("Value:", value);
                         } else {
                             telemetry.addData("Gold Mineral Position", "Center"); //3
                             value = 3;
+                            telemetry.addData("Value:", value);
                         }
                     }
                 }
