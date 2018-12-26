@@ -378,7 +378,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
 
     public int DetectMineral() {
-        int value = 3; //Center by Default
+        int value=0;
         if (tfod != null) {
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
@@ -401,16 +401,15 @@ abstract public class RR2AutoClasses extends LinearOpMode {
                     if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                         if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left"); //1
-                            telemetry.addData("Value:", value);
                             value = 1;
                         } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Right"); //2
                             value = 2;
-                            telemetry.addData("Value:", value);
+
                         } else {
                             telemetry.addData("Gold Mineral Position", "Center"); //3
                             value = 3;
-                            telemetry.addData("Value:", value);
+
                         }
                     }
                 }

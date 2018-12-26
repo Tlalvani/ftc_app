@@ -24,13 +24,13 @@ public class RR2SampleAuto extends RR2AutoClasses
         while(opModeIsActive()) {
 
             if(DetectMineral()==1){
-                imu(15);
+                imu(30);
                 telemetry.addData("value:", DetectMineral());
 
             }
             else if (DetectMineral()==2)
             {
-                imu(-15);
+                imu(-30);
                 telemetry.addData("value:", DetectMineral());
 
             }
