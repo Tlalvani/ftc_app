@@ -25,9 +25,10 @@ public class RR2HardwareDrivebase {
     int LiftMin = 0;
 
     //IMU VALUES
-    double divisorforimu = 20.0;
-    double maxspeedimu = .4;
-    double minspeedimu = .3;
+    double divisorforimu = 10
+            ;
+    double maxspeedimu = .6;
+    double minspeedimu = 0;
     double currentangle = 0;
     double AngleTolerance = 1;
 
@@ -183,7 +184,7 @@ public class RR2HardwareDrivebase {
     }
 
     public void latchOn() {
-        HangLatch.setPosition(0.1);
+        HangLatch.setPosition(0);
     }
 
     public void latchOff() {

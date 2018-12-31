@@ -15,45 +15,42 @@ public class RR2NearSideAuto extends RR2AutoClasses
     public void runOpMode() throws InterruptedException {
 initSensors();
 DetectMineral();
-robot.latchOn();
+
 
         waitForStart();
-
-        if(opModeIsActive()) {
-/*
-            robot.LiftPosition(robot.LiftHang);
-            robot.Lift(1);
-            */
-            robot.LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            robot.LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//robot.latchOff();
-//robot.hangLiftUp();
-            //imu(90);
+        robot.LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while(opModeIsActive()) {
 
 
+           int sample = DetectMineral();
 
-            DriveTargetPosition(200,200,200,200);
+            Unlatch();
+            DriveTargetPosition(350,350,350,350);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
-            sleep(1000);
+            ZeroLift();
+          Sample(sample);
+
             imu(65);
-            DriveTargetPosition(2000,2000,2000,2000);
+            DriveTargetPosition(2400,2400,2400,2400);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
             sleep(1000);
-            imu(-39);
-          DriveTargetPosition(1800,1800,1800,1800);
+            imu(-40);
+          DriveTargetPosition(1900,1900,1900,1900);
             Drive(.4,.4);
             DrivebaseBusy();
             Drive(0,0);
             robot.Intake.setPower(-1);
             sleep(2000);
             robot.Intake.setPower(0);
-            DriveTargetPosition(-3500,-3500,-3500,-3500);
+            imu(-44);
+            DriveTargetPosition(-3400,-3400,-3400,-3400);
             Drive(.65,.65);
             DrivebaseBusy();
             Drive(0,0);

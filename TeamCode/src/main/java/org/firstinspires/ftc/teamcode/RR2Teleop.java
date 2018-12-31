@@ -84,6 +84,8 @@ public class RR2Teleop extends OpMode {
         robot.RB.setPower(right);
         robot.Intake.setPower(intake);
 
+        robot.latchOff();
+
 
         if (gamepad2.b || gamepad1.b) {
             robot.DoorClose();
@@ -120,7 +122,7 @@ public class RR2Teleop extends OpMode {
 
         else if (gamepad2.dpad_up||gamepad1.right_bumper){
            robot.autoLiftUp();
-            robot.ArmFurther = false;
+
         }
 
         else if(gamepad2.x || gamepad1.dpad_up){

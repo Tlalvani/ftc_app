@@ -20,29 +20,25 @@ public class RR2FarSideAuto extends RR2AutoClasses
     public void runOpMode() throws InterruptedException {
 initSensors();
 DetectMineral();
-robot.latchOn();
 
    //         robot.LiftWithEncoders();
         waitForStart();
+        int sample = DetectMineral();
 
         while(opModeIsActive()) {
 
             Unlatch();
-
-            DriveTargetPosition(600,600,600,600);
-            Drive(.2,.2);
-            DrivebaseBusy();
-            Drive(0,0);
-            sleep(1000);
-
+          DriveFromLander();
+          ZeroLift();
+          FarSample(sample);
             imu(90);
 
-            DriveTargetPosition(2100,2100,2100,2100);
+            DriveTargetPosition(2300,2300,2300,2300);
             Drive(.4,.4);
             DrivebaseBusy();
             Drive(0,0);
 
-            imu(133);
+            imu(130);
 
             DriveTargetPosition(1800,1800,1800,1800);
             Drive(.4,.4);
@@ -52,6 +48,8 @@ robot.latchOn();
             robot.Intake.setPower(-1);
             sleep(2000);
             robot.Intake.setPower(0);
+
+            imu(133);
 
             DriveTargetPosition(-3100,-3100,-3100,-3100);
             Drive(.65,.65);

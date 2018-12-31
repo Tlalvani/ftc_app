@@ -97,6 +97,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
     public void initSensors() {
         robot.init(hardwareMap);
 
+        robot.latchOn();
 
 
         // Set up the parameters with which we will use our IMU. Note that integration
@@ -126,7 +127,9 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
-
+        if (tfod != null) {
+            tfod.activate();
+        }
     }
 
     //DRIVE FUNCTIONS
@@ -152,7 +155,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
 
     public void DrivebaseBusy() {
-        while (robot.LB.isBusy() & robot.RF.isBusy() & robot.LF.isBusy() & robot.RB.isBusy()) {
+        while (robot.LB.isBusy() & robot.RF.isBusy() & robot.LF.isBusy() & robot.RB.isBusy() & opModeIsActive()) {
         }
     }
 
@@ -166,20 +169,35 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
 
     public void BusyLift() {
-        while (robot.Lift1.isBusy() & robot.Lift2.isBusy() & robot.Lift3.isBusy()) {
+        while (robot.Lift1.isBusy() & robot.Lift2.isBusy() & robot.Lift3.isBusy() & opModeIsActive()) {
         }
     }
 
+    public void DriveFromLander(){
+        DriveTargetPosition(600,600,600,600);
+        Drive(.2,.2);
+        DrivebaseBusy();
+        Drive(0,0);
+        sleep(500);
+    }
 
     public void Unlatch(){
         robot.latchOff();
-        sleep(1500);
+        sleep(1200);
         robot.LiftPosition(robot.LiftHang);
-        robot.Lift(.5);
+        robot.Lift(.75);
         BusyLift();
         robot.Lift(0);
         sleep(500);
         robot.Hook.setPosition(0);
+    }
+
+    public void ZeroLift(){
+        robot.Hook.setPosition(1);
+        robot.LiftPosition(0);
+        robot.Lift(.75);
+        BusyLift();
+        robot.Lift(0);
     }
 
     void composeTelemetry() {
@@ -418,6 +436,94 @@ abstract public class RR2AutoClasses extends LinearOpMode {
             }
         }
         return value;
+    }
+
+    public void Sample(int value){
+        int sample = value;
+
+        if(sample==1){
+            imu(45);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+
+        }
+        else if (sample==2)
+        {
+            imu(-45);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+
+        }
+        else{
+            imu(0);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+        }
+        DriveTargetPosition(1200,1200,1200,1200);
+        Drive(.4,.4);
+        DrivebaseBusy();
+        Drive(0,0);
+        DriveTargetPosition(-1200,-1200,-1200,-1200);
+        Drive(.4,.4);
+        DrivebaseBusy();
+        Drive(0,0);
+
+    }
+
+    public void FarSample(int value){
+        int sample = value;
+
+        if(sample==1){
+            imu(45);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+
+            DriveTargetPosition(900,900,900,900);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+            DriveTargetPosition(-900,-900,-900,-900);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+
+        }
+        else if (sample==2)
+        {
+            imu(-45);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+            DriveTargetPosition(900,900,900,900);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+            DriveTargetPosition(-900,-900,-900,-900);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+
+        }
+        else{
+            imu(0);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+            DriveTargetPosition(900,900,900,900);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+            DriveTargetPosition(-900,-900,-900,-900);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+        }
+
+
     }
 }
 
