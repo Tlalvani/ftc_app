@@ -131,7 +131,10 @@ public class RR2Teleop extends OpMode {
 
         }
 
-        else{robot.Lift(gamepad2.right_trigger - gamepad2.left_trigger);
+        else if(gamepad1.x){
+            robot.Lift(1);
+        }
+        else{robot.Lift((gamepad2.right_trigger) - gamepad2.left_trigger);
         robot.Hook.setPosition(1);
         }
 

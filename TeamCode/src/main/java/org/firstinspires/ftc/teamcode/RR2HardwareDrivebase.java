@@ -22,15 +22,15 @@ public class RR2HardwareDrivebase {
     //Lift Values
     int LiftMax = 1800;
     int LiftHang = 690;
+    int AutoLiftHang = 720;
     int LiftMin = 0;
 
     //IMU VALUES
-    double divisorforimu = 10
-            ;
-    double maxspeedimu = .6;
-    double minspeedimu = 0;
+    double divisorforimu = 10;
+    double maxspeedimu = .5;
+    double minspeedimu = .3;
     double currentangle = 0;
-    double AngleTolerance = 1;
+    double AngleTolerance = 1.1;
 
     boolean LiftingUp;
     boolean LiftingDown;
@@ -180,7 +180,7 @@ public class RR2HardwareDrivebase {
     }
 
     public void RetractArm() {
-        arm(0.15, 0.85);
+        arm(0.16, 0.84);
     }
 
     public void latchOn() {
@@ -188,7 +188,7 @@ public class RR2HardwareDrivebase {
     }
 
     public void latchOff() {
-        HangLatch.setPosition(0.4);
+        HangLatch.setPosition(0.35);
     }
 
     public void autoLiftUp() {

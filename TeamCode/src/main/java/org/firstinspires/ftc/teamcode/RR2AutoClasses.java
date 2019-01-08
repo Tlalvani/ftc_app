@@ -184,7 +184,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
     public void Unlatch(){
         robot.latchOff();
         sleep(1200);
-        robot.LiftPosition(robot.LiftHang);
+        robot.LiftPosition(robot.AutoLiftHang);
         robot.Lift(.75);
         BusyLift();
         robot.Lift(0);
@@ -498,7 +498,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
             telemetry.addData("value:", sample);
             telemetry.update();
 
-            DriveTargetPosition(900,900,900,900);
+            DriveTargetPosition(850,850,850,850);
             Drive(.4,.4);
             DrivebaseBusy();
             Drive(0,0);
