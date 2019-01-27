@@ -20,24 +20,27 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 1800;
-    int LiftHang = 690;
+    int LiftMax = 1770;
+    int LiftHang = 710;
     int AutoLiftHang = 720;
     int LiftMin = 0;
+
+    double SortLatchClose = .73;
+    double SortLatchOpen = .3;
+
+    double BucketHome = .85;
+    double BucketDeploy = .1;
 
     //IMU VALUES
     double divisorforimu = 10;
     double maxspeedimu = .5;
     double minspeedimu = .3;
     double currentangle = 0;
-    double AngleTolerance = 1.1;
+    double AngleTolerance = 1.2;
 
-    boolean LiftingUp;
-    boolean LiftingDown;
-    boolean ArmFurther;
     /* Public OpMode members. */
     public DcMotor LF, RF, LB, RB, Intake, Lift1, Lift2, Lift3;
-    public Servo Door, Dropper1, Dropper2, HangLatch, Hook;
+    public Servo Door, Dropper1, Dropper2, HangLatch, Hook, Bucket, SortLatch;
 
 
     /* local OpMode members. */
@@ -67,6 +70,8 @@ public class RR2HardwareDrivebase {
         Dropper2 = hwMap.servo.get("Dropper2");
         HangLatch = hwMap.servo.get("HangLatch");
         Hook = hwMap.servo.get("Hook");
+        Bucket = hwMap.servo.get("Bucket");
+        SortLatch = hwMap.servo.get("SortLatch");
 
 
         RB.setDirection(DcMotor.Direction.REVERSE);
@@ -156,14 +161,14 @@ public class RR2HardwareDrivebase {
     }
 
     public void DoorOpen() {
-        Door.setPosition(1);
+        Door.setPosition(0);
     }
 
     public void DoorRamp(){
         Door.setPosition(0.3);
     }
     public void DoorClose() {
-        Door.setPosition(0);
+        Door.setPosition(1);
     }
 
     public void arm(double position, double positionTwo) {
@@ -172,7 +177,8 @@ public class RR2HardwareDrivebase {
     }
 
     public void DeployArm() {
-        arm(0.7, 0.3);
+        //arm(0.7, 0.3);
+        arm(0.83, 0.17);
     }
 
     public void DeployArmFurther(){
@@ -180,7 +186,7 @@ public class RR2HardwareDrivebase {
     }
 
     public void RetractArm() {
-        arm(0.16, 0.84);
+        arm(0.14, 0.88);
     }
 
     public void latchOn() {
@@ -196,10 +202,14 @@ public class RR2HardwareDrivebase {
         if (LiftCurrentPosition() < LiftMax-50) {
             DoorClose();
             Lift(1);
-            if (LiftCurrentPosition() > LiftMax / 2  && LiftCurrentPosition() < LiftMax / 1.5 ) {
+            if (LiftCurrentPosition() > LiftMax / 5  && LiftCurrentPosition() < LiftMax / 2 ) {
                 DeployArm();
-            }
+                DeployArm();
 
+            }
+            else if (LiftCurrentPosition() > LiftMax / 1.4){
+                Bucket.setPosition(BucketDeploy);
+            }
         } else {
             Lift(0);
         }
@@ -216,10 +226,16 @@ public void hangLiftUp(){
     public void autoLiftDown() {
         if (LiftCurrentPosition() > LiftMin) {
             Lift(-1);
-            if (LiftCurrentPosition() < LiftMax / 1.5) {
-                RetractArm();
-                DoorOpen();
+            if (LiftCurrentPosition() > LiftMax / 2) {
+                Bucket.setPosition(BucketHome);
             }
+
+            else{
+
+                DoorOpen();
+                RetractArm();
+            }
+
 
         } else {
             Lift(0);

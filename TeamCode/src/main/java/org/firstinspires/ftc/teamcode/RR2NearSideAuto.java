@@ -36,7 +36,7 @@ DetectMineral();
           Sample(sample);
 
             imu(65);
-            DriveTargetPosition(2400,2400,2400,2400);
+            DriveTargetPosition(2350,2350,2350,2350);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);

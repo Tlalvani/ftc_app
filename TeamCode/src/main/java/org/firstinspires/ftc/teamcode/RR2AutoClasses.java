@@ -182,8 +182,12 @@ abstract public class RR2AutoClasses extends LinearOpMode {
     }
 
     public void Unlatch(){
+
         robot.latchOff();
         sleep(1200);
+        robot.Lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.Lift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.Lift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.LiftPosition(robot.AutoLiftHang);
         robot.Lift(.75);
         BusyLift();

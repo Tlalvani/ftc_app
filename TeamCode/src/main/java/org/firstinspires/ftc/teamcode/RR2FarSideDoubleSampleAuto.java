@@ -80,11 +80,11 @@ DetectMineral();
                 DrivebaseBusy();
                 Drive(0,0);
 
-                DriveTargetPosition(200,200,200,200);
+                DriveTargetPosition(900,900,900,900);
                 Drive(.4,.4);
                 DrivebaseBusy();
                 Drive(0,0);
-                DriveTargetPosition(-200,-200,-200,-200);
+                DriveTargetPosition(-900,-900,-900,-900);
                 Drive(.4,.4);
                 DrivebaseBusy();
                 Drive(0,0);
@@ -110,9 +110,30 @@ DetectMineral();
                 Drive(.4, .4);
                 DrivebaseBusy();
                 Drive(0, 0);
+
                 robot.Intake.setPower(-1);
                 sleep(2000);
                 robot.Intake.setPower(0);
+
+                DriveTargetPosition(-1000,-1000,1000,1000);
+                Drive(.75,.75);
+                DrivebaseBusy();
+                Drive(0,0);
+
+                DriveTargetPosition(1300,1300,1300,1300);
+                Drive(.4,.4);
+                DrivebaseBusy();
+                Drive(0,0);
+                DriveTargetPosition(-1300,-1300,-1300,-1300);
+                Drive(.4,.4);
+                DrivebaseBusy();
+                Drive(0,0);
+
+                DriveTargetPosition(1000,1000,-1000,-1000);
+                Drive(.75,.75);
+                DrivebaseBusy();
+                Drive(0,0);
+
             }
 
 

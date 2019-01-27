@@ -82,31 +82,31 @@ public class RR2Teleop extends OpMode {
         robot.RF.setPower(right);
         robot.LB.setPower(left);
         robot.RB.setPower(right);
-        robot.Intake.setPower(intake);
-
         robot.latchOff();
 
+if(gamepad1.right_trigger > .1){
+    robot.DoorOpen();
+    robot.RetractArm();
+    robot.Bucket.setPosition(robot.BucketHome);
+    robot.SortLatch.setPosition(robot.SortLatchClose);
 
+}
         if (gamepad2.b || gamepad1.b) {
             robot.DoorClose();
+            robot.SortLatch.setPosition(robot.SortLatchClose);
         }
 
+        if(gamepad1.y){
+        robot.DoorOpen();
+        }
         if(gamepad2.a || gamepad1.a){
-            if(!robot.ArmFurther) {
-                robot.DoorOpen();}
-            else{robot.DoorRamp();}
+          robot.SortLatch.setPosition(robot.SortLatchOpen);
         }
 
         if (gamepad2.left_bumper) {
             robot.RetractArm();
-            robot.ArmFurther = false;
         } else if (gamepad2.right_bumper) {
             robot.DeployArm();
-            robot.ArmFurther = false;
-        }
-        else if (gamepad2.y|| gamepad1.y){
-           robot.ArmFurther = true;
-            robot.DeployArmFurther();
         }
 
         if (gamepad2.dpad_left){
@@ -115,9 +115,12 @@ public class RR2Teleop extends OpMode {
             robot.latchOn();
         }
 
+
+        robot.Intake.setPower(intake);
+
         if (gamepad2.dpad_down||gamepad1.left_bumper) {
             robot.autoLiftDown();
-            robot.ArmFurther = false;
+
         }
 
         else if (gamepad2.dpad_up||gamepad1.right_bumper){
@@ -139,11 +142,6 @@ public class RR2Teleop extends OpMode {
         }
 
 
-    /*    if (gamepad2.b) {
-            robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger));
-        } else {
-        robot.Lift((gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) * (gamepad2.right_trigger - gamepad2.left_trigger) / 2);
-    } */
 
         telemetry.addData("LF: ", robot.LF.getCurrentPosition());
         telemetry.addData("LB: ", robot.LB.getCurrentPosition());
