@@ -124,13 +124,15 @@ if(gamepad1.right_trigger > .1){
         }
 
         else if (gamepad2.dpad_up||gamepad1.right_bumper){
-           robot.autoLiftUp();
+
+            robot.autoLiftUp();
 
         }
 
         else if(gamepad2.x || gamepad1.dpad_up){
             robot.hangLiftUp();
             robot.Hook.setPosition(0);
+            robot.Bucket.setPwmDisable();
 
         }
 

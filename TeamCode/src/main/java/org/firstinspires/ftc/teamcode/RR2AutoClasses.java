@@ -98,6 +98,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         robot.init(hardwareMap);
 
         robot.latchOn();
+        robot.Bucket.setPosition(robot.BucketHome);
 
 
         // Set up the parameters with which we will use our IMU. Note that integration

@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
+import com.qualcomm.robotcore.hardware.PwmControl;
 
 /**
  * This is NOT an opmode.
@@ -40,7 +42,8 @@ public class RR2HardwareDrivebase {
 
     /* Public OpMode members. */
     public DcMotor LF, RF, LB, RB, Intake, Lift1, Lift2, Lift3;
-    public Servo Door, Dropper1, Dropper2, HangLatch, Hook, Bucket, SortLatch;
+    public Servo Door, Dropper1, Dropper2, HangLatch, Hook, SortLatch;
+    public ServoImplEx Bucket;
 
 
     /* local OpMode members. */
@@ -70,7 +73,7 @@ public class RR2HardwareDrivebase {
         Dropper2 = hwMap.servo.get("Dropper2");
         HangLatch = hwMap.servo.get("HangLatch");
         Hook = hwMap.servo.get("Hook");
-        Bucket = hwMap.servo.get("Bucket");
+        Bucket = hwMap.get(ServoImplEx.class, "Bucket");
         SortLatch = hwMap.servo.get("SortLatch");
 
 
@@ -194,7 +197,7 @@ public class RR2HardwareDrivebase {
     }
 
     public void latchOff() {
-        HangLatch.setPosition(0.35);
+        HangLatch.setPosition(0.5);
     }
 
     public void autoLiftUp() {
