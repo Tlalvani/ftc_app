@@ -1,16 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Disabled
-@Autonomous(name="oldRR2FarSideAuto", group="Test")  // @Autonomous(...) is the other common choice
-public class RR2FarSideAuto extends RR2AutoClasses
+
+@Autonomous(name="RR2FarSideAuto", group="Test")  // @Autonomous(...) is the other common choice
+public class RR2MecanumFarSideAuto extends RR2AutoClasses
 {
 
 
@@ -28,8 +22,12 @@ DetectMineral();
         while(opModeIsActive()) {
 
             Unlatch();
-          DriveFromLander();
-          ZeroLift();
+            DriveTargetPosition(400,400,400,400);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+            ZeroLift();
+
           FarSample(sample);
             imu(90);
 

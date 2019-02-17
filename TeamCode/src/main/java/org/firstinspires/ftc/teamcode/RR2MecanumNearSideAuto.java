@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Disabled
-@Autonomous(name="RR2oldNearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
-public class RR2NearSideAuto extends RR2AutoClasses
+
+@Autonomous(name="RR2NearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
+public class RR2MecanumNearSideAuto extends RR2AutoClasses
 {
 
 
@@ -19,24 +18,55 @@ DetectMineral();
 
 
         waitForStart();
-        robot.LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        int sample = DetectMineral();
         while(opModeIsActive()) {
 
 
-           int sample = DetectMineral();
+
 
             Unlatch();
-            DriveTargetPosition(350,350,350,350);
+            DriveTargetPosition(400,400,400,400);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
             ZeroLift();
-          Sample(sample);
 
-            imu(65);
+         //   DepositTeamMarker();
+
+            Sample(sample);
+            imu(79);
+            DriveTargetPosition(1600,1600,1600,1600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+            imu(-40);
+
+            DriveTargetPosition(-500,500,500,-500);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            DriveTargetPosition(800,800,800,800);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            DepositTeamMarker();
+
+            DriveTargetPosition(-1600,-1600,-1600,-1600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+            robot.DeployArm();
+
+
+
+
+
+         //Sample(sample);
+
+     /*       imu(65);
             DriveTargetPosition(2350,2350,2350,2350);
             Drive(.2,.2);
             DrivebaseBusy();
@@ -55,7 +85,7 @@ DetectMineral();
             Drive(.65,.65);
             DrivebaseBusy();
             Drive(0,0);
-            robot.DeployArm();
+            robot.DeployArm();*/
             sleep(100000);
 
             /*

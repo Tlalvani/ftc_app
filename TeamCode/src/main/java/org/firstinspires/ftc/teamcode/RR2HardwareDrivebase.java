@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -30,20 +31,33 @@ public class RR2HardwareDrivebase {
     double SortLatchClose = .73;
     double SortLatchOpen = .3;
 
-    double BucketHome = .85;
+    double BucketHome = .9;
     double BucketDeploy = .1;
 
-    //IMU VALUES
+  /*  //IMU VALUES
     double divisorforimu = 10;
     double maxspeedimu = .5;
     double minspeedimu = .3;
     double currentangle = 0;
     double AngleTolerance = 1.2;
+*/
+  double divisorforimu = 95;
+    double maxspeedimu = .4;
+    double minspeedimu = 0;
+    double currentangle = 0;
+    double AngleTolerance = 2;
+
+    double IntakeFlip = .5;
+    double IntakeFlipHome = 0;
+
+    boolean AutoLiftingUp = false;
+    boolean AutoLiftingDown = false;
 
     /* Public OpMode members. */
-    public DcMotor LF, RF, LB, RB, Intake, Lift1, Lift2, Lift3;
-    public Servo Door, Dropper1, Dropper2, HangLatch, Hook, SortLatch;
+    public DcMotor LF, RF, LB, RB, Lift1, Lift2, Lift3, IntakeLift;
+    public Servo Door, Dropper1, Dropper2, HangLatch, Hook, SortLatch, IntakeLatch, IntakeFlipper;
     public ServoImplEx Bucket;
+    public CRServo Intake;
 
 
     /* local OpMode members. */
@@ -64,24 +78,27 @@ public class RR2HardwareDrivebase {
         RB = hwMap.dcMotor.get("RB");
         RF = hwMap.dcMotor.get("RF");
         LF = hwMap.dcMotor.get("LF");
-        Intake = hwMap.dcMotor.get("Intake");
+        Intake = hwMap.crservo.get("Intake");
         Lift1 = hwMap.dcMotor.get("Lift1");
         Lift2 = hwMap.dcMotor.get("Lift2");
         Lift3 = hwMap.dcMotor.get("Lift3");
+        IntakeLift = hwMap.dcMotor.get("IntakeLift");
         Door = hwMap.servo.get("Door");
         Dropper1 = hwMap.servo.get("Dropper1");
         Dropper2 = hwMap.servo.get("Dropper2");
         HangLatch = hwMap.servo.get("HangLatch");
         Hook = hwMap.servo.get("Hook");
+        IntakeLatch = hwMap.servo.get("IntakeLatch");
+        IntakeFlipper = hwMap.servo.get("IntakeFlipper");
         Bucket = hwMap.get(ServoImplEx.class, "Bucket");
         SortLatch = hwMap.servo.get("SortLatch");
 
 
-        RB.setDirection(DcMotor.Direction.REVERSE);
-        RF.setDirection(DcMotor.Direction.REVERSE);
-        LB.setDirection(DcMotor.Direction.FORWARD);
-        LF.setDirection(DcMotor.Direction.FORWARD);
-        Intake.setDirection(DcMotor.Direction.REVERSE);
+        LB.setDirection(DcMotor.Direction.REVERSE);
+        LF.setDirection(DcMotor.Direction.REVERSE);
+        RB.setDirection(DcMotor.Direction.FORWARD);
+        RF.setDirection(DcMotor.Direction.FORWARD);
+        IntakeLift.setDirection(DcMotor.Direction.REVERSE);
         Lift1.setDirection(DcMotor.Direction.FORWARD);
         Lift2.setDirection(DcMotor.Direction.REVERSE);
         Lift3.setDirection(DcMotor.Direction.FORWARD);
@@ -108,6 +125,8 @@ public class RR2HardwareDrivebase {
         Lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Lift3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        IntakeLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
 /*
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -115,14 +134,11 @@ public class RR2HardwareDrivebase {
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
 
-       Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        DrivebaseWithEncoders();
+        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        IntakeLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -132,6 +148,7 @@ public class RR2HardwareDrivebase {
         Lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Lift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Lift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        IntakeLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
     }
@@ -158,6 +175,11 @@ public class RR2HardwareDrivebase {
         Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+
+    public void ExtendLiftPosition(int liftposition) {
+        IntakeLift.setTargetPosition(liftposition);
+        IntakeLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
     public int LiftCurrentPosition() {
         int position = (Lift1.getCurrentPosition() + Lift2.getCurrentPosition() + Lift3.getCurrentPosition()) / 3;
         return position;
@@ -167,9 +189,6 @@ public class RR2HardwareDrivebase {
         Door.setPosition(0);
     }
 
-    public void DoorRamp(){
-        Door.setPosition(0.3);
-    }
     public void DoorClose() {
         Door.setPosition(1);
     }
@@ -181,59 +200,62 @@ public class RR2HardwareDrivebase {
 
     public void DeployArm() {
         //arm(0.7, 0.3);
-        arm(0.83, 0.17);
+        arm(0.8, 0.2);
     }
 
-    public void DeployArmFurther(){
-        arm(0.83, 0.17);
+public void IntakeLatchOpen(){
+        IntakeLatch.setPosition(1);
+    }
+
+    public void IntakeLatchClose(){
+        IntakeLatch.setPosition(.5);
     }
 
     public void RetractArm() {
-        arm(0.14, 0.88);
+        arm(0.1, 0.9);
     }
 
     public void latchOn() {
-        HangLatch.setPosition(0);
+        HangLatch.setPosition(.6);
     }
 
     public void latchOff() {
-        HangLatch.setPosition(0.5);
+        HangLatch.setPosition(0.35);
     }
 
     public void autoLiftUp() {
 
-        if (LiftCurrentPosition() < LiftMax-50) {
+        if (LiftCurrentPosition() < LiftMax - 50) {
             DoorClose();
             Lift(1);
-            if (LiftCurrentPosition() > LiftMax / 5  && LiftCurrentPosition() < LiftMax / 2 ) {
+            if (LiftCurrentPosition() > LiftMax / 5 && LiftCurrentPosition() < LiftMax / 2) {
                 DeployArm();
                 DeployArm();
 
-            }
-            else if (LiftCurrentPosition() > LiftMax / 1.4){
+            } else if (LiftCurrentPosition() > LiftMax / 1.4) {
                 Bucket.setPosition(BucketDeploy);
             }
+        } else {
+            Lift(0);
+            AutoLiftingUp = false;
+        }
+    }
+
+    public void hangLiftUp() {
+        if (LiftCurrentPosition() < LiftHang) {
+            Lift(1);
+
         } else {
             Lift(0);
         }
     }
 
-public void hangLiftUp(){
-    if (LiftCurrentPosition() < LiftHang) {
-        Lift(1);
-
-    } else {
-        Lift(0);
-    }
-}
     public void autoLiftDown() {
-        if (LiftCurrentPosition() > LiftMin) {
-            Lift(-1);
+        if (LiftCurrentPosition() > LiftMin+10) {
+            Lift(-.8);
             if (LiftCurrentPosition() > LiftMax / 2) {
                 Bucket.setPosition(BucketHome);
-            }
-
-            else{
+            } else {
 
                 DoorOpen();
                 RetractArm();
@@ -242,6 +264,7 @@ public void hangLiftUp(){
 
         } else {
             Lift(0);
+            AutoLiftingDown = false;
         }
     }
 
@@ -272,6 +295,14 @@ public void hangLiftUp(){
 
         // return scaled value.
         return dScale;
+    }
+
+
+    public void DrivebaseWithEncoders() {
+        LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 

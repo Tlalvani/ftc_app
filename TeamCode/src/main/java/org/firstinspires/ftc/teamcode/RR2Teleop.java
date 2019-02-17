@@ -27,8 +27,8 @@ import java.util.Locale;
  * RF = Right Front
  */
 
-@TeleOp(name = "RR2Teleop", group = "RR2")  // @Autonomous(...) is the other common choice
-public class RR2Teleop extends OpMode {
+@TeleOp(name = "oldRR2Teleop", group = "RR2")  // @Autonomous(...) is the other common choice
+abstract public class RR2Teleop extends OpMode {
 
     /* local OpMode members. */
     HardwareMap hwMap = null;

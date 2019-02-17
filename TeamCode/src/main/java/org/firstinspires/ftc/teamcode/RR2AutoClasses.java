@@ -160,12 +160,9 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         }
     }
 
-
-    public void DrivebaseWithEncoders() {
-        robot.LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public void IntakeLiftBusy() {
+        while (robot.IntakeLift.isBusy() & opModeIsActive()) {
+        }
     }
 
 
@@ -182,6 +179,38 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         sleep(500);
     }
 
+    public void DepositTeamMarker(){
+      /*  robot.ExtendLiftPosition(200);
+        robot.IntakeLift.setPower(1);
+        IntakeLiftBusy();
+        robot.IntakeLift.setPower(0);
+        sleep(1000);
+        robot.IntakeFlipper.setPosition(.65);
+        sleep(1000);
+        */
+        robot.IntakeFlipper.setPosition(.15);
+        robot.ExtendLiftPosition(900);
+        robot.IntakeLift.setPower(1);
+        IntakeLiftBusy();
+        robot.IntakeLift.setPower(0);
+        robot.IntakeFlipper.setPosition(.15);
+        robot.Intake.setPower(.75);
+        sleep(2000);
+     //   robot.IntakeFlipper.setPosition(.65);
+        robot.Intake.setPower(0);
+     /*   robot.ExtendLiftPosition(150);
+        robot.IntakeLift.setPower(1);
+        IntakeLiftBusy();
+        robot.IntakeLift.setPower(0);
+        robot.IntakeFlipper.setPosition(.15);
+        sleep(500);
+        */
+        robot.ExtendLiftPosition(0);
+        robot.IntakeLift.setPower(1);
+        IntakeLiftBusy();
+        robot.IntakeLift.setPower(0);
+
+    }
     public void Unlatch(){
 
         robot.latchOff();
@@ -285,10 +314,8 @@ abstract public class RR2AutoClasses extends LinearOpMode {
     }
 
     public void imu(double degrees) {
-        robot.LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        robot.DrivebaseWithEncoders();
         telemetry.update();
         double leftSpeedt; //Power to feed the motors
         double rightSpeedt;
@@ -443,7 +470,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         return value;
     }
 
-    public void Sample(int value){
+  /*  public void Sample(int value){
         int sample = value;
 
         if(sample==1){
@@ -477,8 +504,87 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         Drive(0,0);
 
     }
+    */
+  public void Sample(int value){
+      int sample = value;
+
+      if(sample==1){
+          imu(35);
+          telemetry.addData("value:", sample);
+          telemetry.update();
+
+
+      }
+      else if (sample==2)
+      {
+          imu(-35);
+          telemetry.addData("value:", sample);
+          telemetry.update();
+
+
+      }
+      else{
+          imu(0);
+          telemetry.addData("value:", sample);
+          telemetry.update();
+
+      }
+
+    //  robot.Intake.setPower(-.75);
+      robot.IntakeFlipper.setPosition(.15);
+      robot.ExtendLiftPosition(1100);
+      robot.IntakeLift.setPower(1);
+      IntakeLiftBusy();
+      robot.IntakeLift.setPower(0);
+      sleep(1000);
+      robot.ExtendLiftPosition(0);
+      robot.IntakeLift.setPower(1);
+      IntakeLiftBusy();
+      robot.IntakeLift.setPower(0);
+    //  robot.Intake.setPower(0);
+
+  }
 
     public void FarSample(int value){
+        int sample = value;
+
+        if(sample==1){
+            imu(35);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+
+        }
+        else if (sample==2)
+        {
+            imu(-35);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+
+        }
+        else{
+            imu(0);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+        }
+
+        //  robot.Intake.setPower(-.75);
+        robot.IntakeFlipper.setPosition(.15);
+        robot.ExtendLiftPosition(1100);
+        robot.IntakeLift.setPower(1);
+        IntakeLiftBusy();
+        robot.IntakeLift.setPower(0);
+        sleep(1000);
+        robot.ExtendLiftPosition(0);
+        robot.IntakeLift.setPower(1);
+        IntakeLiftBusy();
+        robot.IntakeLift.setPower(0);
+        //  robot.Intake.setPower(0);
+
+    }
+    /*public void FarSample(int value){
         int sample = value;
 
         if(sample==1){
@@ -530,6 +636,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
 
     }
+*/
 }
 
 
