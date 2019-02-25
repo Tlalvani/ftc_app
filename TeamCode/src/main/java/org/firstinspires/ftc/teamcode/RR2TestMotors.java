@@ -7,15 +7,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- *
  * LB = Left Back
  * LF = Left Front
  * RB = Right Back
  * RF = Right Front
  */
 
-@TeleOp(name = "MotorTest", group = "RR2")  // @Autonomous(...) is the other common choice
-public class MotorTest extends OpMode {
+@TeleOp(name = "RR2MotorTest", group = "RR2")  // @Autonomous(...) is the other common choice
+public class RR2TestMotors extends OpMode {
 
     /* local OpMode members. */
     HardwareMap hwMap = null;
@@ -23,12 +22,13 @@ public class MotorTest extends OpMode {
     RR2HardwareDrivebase robot = new RR2HardwareDrivebase();
 
 
+
+
     /* Constructor */
     @Override
     public void init() {
 
         robot.init(hardwareMap);
-
 
     }
 
@@ -50,23 +50,35 @@ public class MotorTest extends OpMode {
     @Override
     public void loop() {
 
+        if(gamepad1.a){
+            robot.Lift1.setPower(1);
+        }
+        else if (gamepad1.b){
+            robot.Lift2.setPower(1);
+        }
+        else if (gamepad1.x){
+            robot.Lift3.setPower(1);
+        }
+        else{
+            robot.Lift1.setPower(0);
+            robot.Lift2.setPower(0);
+            robot.Lift3.setPower(0);
+        }
+        telemetry.addData("LF: ", robot.LF.getCurrentPosition());
+        telemetry.addData("LB: ", robot.LB.getCurrentPosition());
+        telemetry.addData("RF: ", robot.RF.getCurrentPosition());
+        telemetry.addData("RB: ", robot.RB.getCurrentPosition());
 
-      /* if(gamepad1.a){ robot.LF.setPower(.2);}
-       else{robot.LF.setPower(0);}
-       if(gamepad1.b){robot.LB.setPower(.2);}
-       else{robot.LB.setPower(0);}
-*/
 
-      robot.LF.setPower(gamepad1.left_trigger);
-      robot.LB.setPower(gamepad1.right_trigger);
-
-
-        telemetry.addData("LF: ", robot.LF.getPower());
-        telemetry.addData("LB: ", robot.LB.getPower());
         telemetry.addData("RF: ", robot.RF.getPower());
+        telemetry.addData("LB: ", robot.LB.getPower());
         telemetry.addData("RB: ", robot.RB.getPower());
-        telemetry.addData("Door: ", robot.Dropper1.getPosition());
+        telemetry.addData("LF: ", robot.LF.getPower());
+
         telemetry.addData("Lift Encoders", robot.LiftCurrentPosition());
+
+        telemetry.addData("Extend Lift Encoders", robot.IntakeLift.getCurrentPosition());
+
         telemetry.update();
 
     }

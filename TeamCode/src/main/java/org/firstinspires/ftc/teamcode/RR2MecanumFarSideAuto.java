@@ -22,7 +22,7 @@ DetectMineral();
         while(opModeIsActive()) {
 
             Unlatch();
-            DriveTargetPosition(400,400,400,400);
+            DriveTargetPosition(450,450,450,450);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
@@ -31,29 +31,32 @@ DetectMineral();
           FarSample(sample);
             imu(90);
 
-            DriveTargetPosition(2300,2300,2300,2300);
-            Drive(.4,.4);
+            DriveTargetPosition(1900,1900,1900,1900);
+            Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
 
-            imu(130);
+            imu(120);
 
-            DriveTargetPosition(1800,1800,1800,1800);
-            Drive(.4,.4);
+            DriveTargetPosition(500,-500,-500,500);
+            Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
 
-            robot.Intake.setPower(-1);
-            sleep(2000);
-            robot.Intake.setPower(0);
-
-            imu(133);
-
-            DriveTargetPosition(-3200,-3200,-3200,-3200);
-            Drive(.65,.65);
+            DriveTargetPosition(800,800,800,800);
+            Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
 
+
+            DepositTeamMarker();
+            imu(120);
+
+
+            DriveTargetPosition(-1900,-1900,-1900,-1900);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
             robot.DeployArm();
             sleep(100000);
 /*

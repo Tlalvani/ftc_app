@@ -23,9 +23,9 @@ import com.qualcomm.robotcore.hardware.PwmControl;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 1770;
-    int LiftHang = 710;
-    int AutoLiftHang = 720;
+    int LiftMax = 2900;
+    int LiftHang = 1420;
+    int AutoLiftHang = 1440;
     int LiftMin = 0;
 
     double SortLatchClose = .73;
@@ -34,6 +34,8 @@ public class RR2HardwareDrivebase {
     double BucketHome = .9;
     double BucketDeploy = .1;
 
+    double intakedown = .05;
+
   /*  //IMU VALUES
     double divisorforimu = 10;
     double maxspeedimu = .5;
@@ -41,11 +43,11 @@ public class RR2HardwareDrivebase {
     double currentangle = 0;
     double AngleTolerance = 1.2;
 */
-  double divisorforimu = 95;
+  double divisorforimu = 125;
     double maxspeedimu = .4;
     double minspeedimu = 0;
     double currentangle = 0;
-    double AngleTolerance = 2;
+    double AngleTolerance = 1.5;
 
     double IntakeFlip = .5;
     double IntakeFlipHome = 0;
@@ -135,6 +137,7 @@ public class RR2HardwareDrivebase {
         LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
 
         DrivebaseWithEncoders();
+        
         Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -186,7 +189,7 @@ public class RR2HardwareDrivebase {
     }
 
     public void DoorOpen() {
-        Door.setPosition(0);
+        Door.setPosition(.6);
     }
 
     public void DoorClose() {
@@ -200,7 +203,7 @@ public class RR2HardwareDrivebase {
 
     public void DeployArm() {
         //arm(0.7, 0.3);
-        arm(0.8, 0.2);
+        arm(0.77, 0.2);
     }
 
 public void IntakeLatchOpen(){
@@ -252,7 +255,7 @@ public void IntakeLatchOpen(){
 
     public void autoLiftDown() {
         if (LiftCurrentPosition() > LiftMin+10) {
-            Lift(-.8);
+            Lift(-1);
             if (LiftCurrentPosition() > LiftMax / 2) {
                 Bucket.setPosition(BucketHome);
             } else {

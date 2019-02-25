@@ -188,12 +188,12 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         robot.IntakeFlipper.setPosition(.65);
         sleep(1000);
         */
-        robot.IntakeFlipper.setPosition(.15);
+        robot.IntakeFlipper.setPosition(robot.intakedown);
         robot.ExtendLiftPosition(900);
         robot.IntakeLift.setPower(1);
         IntakeLiftBusy();
         robot.IntakeLift.setPower(0);
-        robot.IntakeFlipper.setPosition(.15);
+        robot.IntakeFlipper.setPosition(robot.intakedown);
         robot.Intake.setPower(.75);
         sleep(2000);
      //   robot.IntakeFlipper.setPosition(.65);
@@ -510,6 +510,8 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
       if(sample==1){
           imu(35);
+          sleep(500);
+          imu(35);
           telemetry.addData("value:", sample);
           telemetry.update();
 
@@ -517,6 +519,8 @@ abstract public class RR2AutoClasses extends LinearOpMode {
       }
       else if (sample==2)
       {
+          imu(-35);
+          sleep(500);
           imu(-35);
           telemetry.addData("value:", sample);
           telemetry.update();
@@ -531,7 +535,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
       }
 
     //  robot.Intake.setPower(-.75);
-      robot.IntakeFlipper.setPosition(.15);
+      robot.IntakeFlipper.setPosition(robot.intakedown);
       robot.ExtendLiftPosition(1100);
       robot.IntakeLift.setPower(1);
       IntakeLiftBusy();
@@ -550,16 +554,40 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
         if(sample==1){
             imu(35);
+            sleep(500);
+            imu(35);
             telemetry.addData("value:", sample);
             telemetry.update();
+         //   robot.IntakeFlipper.setPosition(.15);
+            robot.ExtendLiftPosition(1000);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
 
 
         }
         else if (sample==2)
         {
             imu(-35);
+            sleep(500);
+            imu(-35);
             telemetry.addData("value:", sample);
             telemetry.update();
+          //  robot.IntakeFlipper.setPosition(robot.intakedown);
+            robot.ExtendLiftPosition(1000);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
 
 
         }
@@ -567,20 +595,21 @@ abstract public class RR2AutoClasses extends LinearOpMode {
             imu(0);
             telemetry.addData("value:", sample);
             telemetry.update();
+            robot.IntakeFlipper.setPosition(robot.intakedown);
+            robot.ExtendLiftPosition(850);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
 
         }
 
         //  robot.Intake.setPower(-.75);
-        robot.IntakeFlipper.setPosition(.15);
-        robot.ExtendLiftPosition(1100);
-        robot.IntakeLift.setPower(1);
-        IntakeLiftBusy();
-        robot.IntakeLift.setPower(0);
-        sleep(1000);
-        robot.ExtendLiftPosition(0);
-        robot.IntakeLift.setPower(1);
-        IntakeLiftBusy();
-        robot.IntakeLift.setPower(0);
+
         //  robot.Intake.setPower(0);
 
     }

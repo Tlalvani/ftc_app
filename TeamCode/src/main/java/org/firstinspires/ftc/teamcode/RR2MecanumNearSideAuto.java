@@ -26,7 +26,7 @@ DetectMineral();
 
 
             Unlatch();
-            DriveTargetPosition(400,400,400,400);
+            DriveTargetPosition(450,450,450,450);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
@@ -36,7 +36,7 @@ DetectMineral();
 
             Sample(sample);
             imu(79);
-            DriveTargetPosition(1600,1600,1600,1600);
+            DriveTargetPosition(1700,1700,1700,1700);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
@@ -47,7 +47,7 @@ DetectMineral();
             DrivebaseBusy();
             Drive(0,0);
 
-            DriveTargetPosition(800,800,800,800);
+            DriveTargetPosition(1000,1000,1000,1000);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
