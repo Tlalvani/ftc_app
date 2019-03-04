@@ -89,17 +89,21 @@ public class MecanumRR2Teleop extends OpMode {
         //Auto Set when intake runs
         if (gamepad1.right_trigger > .1) {
             robot.Intake.setPower(-.75);
-            robot.DoorOpen();
-            robot.RetractArm();
-            robot.Bucket.setPosition(robot.BucketHome);
-            robot.SortLatch.setPosition(robot.SortLatchClose);
-
+            robot.Intake2.setPower(-.75);
+            if(robot.LiftCurrentPosition() < 100){
+                robot.DoorOpen();
+                robot.RetractArm();
+                robot.Bucket.setPosition(robot.BucketHome);
+                robot.SortLatch.setPosition(robot.SortLatchClose);
+            }
         }
         else if(gamepad1.left_trigger>.1){
             robot.Intake.setPower(.75);
+            robot.Intake2.setPower(.75);
         }
         else{
             robot.Intake.setPower(0);
+            robot.Intake2.setPower(0);
         }
         //Sort Latch
         if (gamepad1.b) {
@@ -140,16 +144,11 @@ public class MecanumRR2Teleop extends OpMode {
             robot.AutoLiftingUp = true;
             robot.AutoLiftingDown = false;
         }
-        else if(robot.AutoLiftingDown){
-            robot.autoLiftDown();
-        }
 
-        else if(robot.AutoLiftingUp){
-            robot.DeployArm();
-            robot.autoLiftUp();
-        }
         else if (gamepad1.dpad_up) {
             robot.Lift(1);
+            robot.AutoLiftingUp = false;
+            robot.AutoLiftingDown = false;
             robot.Hook.setPosition(0);
             robot.Bucket.setPwmDisable();
         }
@@ -158,20 +157,41 @@ public class MecanumRR2Teleop extends OpMode {
             robot.hangLiftUp();
             robot.Hook.setPosition(0);
             robot.Bucket.setPwmDisable();
+            robot.AutoLiftingDown = false;
+            robot.AutoLiftingUp = false;
 
         }
         else if (gamepad1.dpad_left) {
             robot.Lift(-1);
+            robot.AutoLiftingDown = false;
+            robot.AutoLiftingUp = false;
         }
+
+        else if(robot.AutoLiftingDown){
+            robot.autoLiftDown();
+        }
+
+        else if(robot.AutoLiftingUp){
+            robot.DeployArm();
+            robot.autoLiftUp();
+
+        }
+
         else {
             robot.Lift((gamepad2.right_trigger) - gamepad2.left_trigger);
             robot.Hook.setPosition(1);
         }
 
-
+if(gamepad1.right_stick_button){
+            robot.Bucket.setPosition(.05);
+}
         //Extending Intake
 
-        if(gamepad1.right_bumper){
+        if(gamepad1.left_bumper && gamepad1.right_bumper){
+            robot.IntakeLift.setPower(0);
+            robot.IntakeFlipper.setPosition(.65);
+        }
+       else if(gamepad1.right_bumper){
             robot.IntakeLift.setPower(1);
         }
         else if (gamepad1.left_bumper){
@@ -183,11 +203,17 @@ public class MecanumRR2Teleop extends OpMode {
 
         }
 
-
         if(robot.IntakeLift.getCurrentPosition()<150){
-            robot.IntakeFlipper.setPosition(robot.intakedown);
             robot.IntakeLatchOpen();
         }
+        else{
+            robot.IntakeLatchClose();
+        }
+
+       if(robot.IntakeLift.getCurrentPosition()<300){
+            robot.IntakeFlipper.setPosition(robot.intakedown);
+        }
+
 
 
         else if(gamepad1.left_bumper||gamepad1.right_bumper){
@@ -195,7 +221,7 @@ public class MecanumRR2Teleop extends OpMode {
                 robot.IntakeFlipper.setPosition(robot.intakedown);
             }
             else{ robot.IntakeFlipper.setPosition(.65);}
-            robot.IntakeLatchClose();
+
         }
 
         else{

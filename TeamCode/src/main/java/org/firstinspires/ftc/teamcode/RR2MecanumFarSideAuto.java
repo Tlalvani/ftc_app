@@ -22,16 +22,57 @@ DetectMineral();
         while(opModeIsActive()) {
 
             Unlatch();
-            DriveTargetPosition(450,450,450,450);
+        /*    DriveTargetPosition(450,450,450,450);
             Drive(.2,.2);
             DrivebaseBusy();
+            Drive(0,0); */
+
+            DriveTargetPosition(50,50,50,50);
+            Drive(.4,.4);
+            DrivebaseBusy();
             Drive(0,0);
+
+
             ZeroLift();
 
-          FarSample(sample);
-            imu(90);
+        FarSample(sample);
+imu(0);
+          RightAngleTurnTargetPosition(2000,2000);
+            Drive(0,.2);
+            RightDrivebaseBusy();
+            Drive(0,0);
 
-            DriveTargetPosition(1900,1900,1900,1900);
+
+            DriveTargetPosition(1000,1000,1000,1000);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            RightAngleTurnTargetPosition(700,700);
+            Drive(0,.2);
+            RightDrivebaseBusy();
+            Drive(0,0);
+
+            DriveTargetPosition(200,200,200,200);
+            Drive(.4,.4);
+            DrivebaseBusy();
+            Drive(0,0);
+
+
+
+            DepositTeamMarker();
+
+
+            DriveTargetPosition(-1600,-1600,-1600,-1600);
+            Drive(.3,.3);
+            DrivebaseBusy();
+            Drive(0,0);
+            robot.DeployArm();
+            sleep(100000);
+
+            // imu(90);
+
+        /* Old auto   DriveTargetPosition(1900,1900,1900,1900);
             Drive(.2,.2);
             DrivebaseBusy();
             Drive(0,0);
@@ -78,6 +119,7 @@ DetectMineral();
             robot.DeployArm();
             sleep(100000);
             */
+sleep(1000000);
         }
 
     }

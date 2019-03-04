@@ -31,10 +31,10 @@ public class RR2HardwareDrivebase {
     double SortLatchClose = .73;
     double SortLatchOpen = .3;
 
-    double BucketHome = .9;
+    double BucketHome = .87;
     double BucketDeploy = .1;
 
-    double intakedown = .05;
+    double intakedown = .09;
 
   /*  //IMU VALUES
     double divisorforimu = 10;
@@ -43,11 +43,11 @@ public class RR2HardwareDrivebase {
     double currentangle = 0;
     double AngleTolerance = 1.2;
 */
-  double divisorforimu = 125;
-    double maxspeedimu = .4;
+  double divisorforimu = 100;
+    double maxspeedimu = .25;
     double minspeedimu = 0;
     double currentangle = 0;
-    double AngleTolerance = 1.5;
+    double AngleTolerance = 3;
 
     double IntakeFlip = .5;
     double IntakeFlipHome = 0;
@@ -55,11 +55,14 @@ public class RR2HardwareDrivebase {
     boolean AutoLiftingUp = false;
     boolean AutoLiftingDown = false;
 
+    boolean Liftedup = false;
+    boolean Liftdown = false;
+
     /* Public OpMode members. */
     public DcMotor LF, RF, LB, RB, Lift1, Lift2, Lift3, IntakeLift;
     public Servo Door, Dropper1, Dropper2, HangLatch, Hook, SortLatch, IntakeLatch, IntakeFlipper;
     public ServoImplEx Bucket;
-    public CRServo Intake;
+    public CRServo Intake, Intake2;
 
 
     /* local OpMode members. */
@@ -81,6 +84,7 @@ public class RR2HardwareDrivebase {
         RF = hwMap.dcMotor.get("RF");
         LF = hwMap.dcMotor.get("LF");
         Intake = hwMap.crservo.get("Intake");
+        Intake2 = hwMap.crservo.get("Intake2");
         Lift1 = hwMap.dcMotor.get("Lift1");
         Lift2 = hwMap.dcMotor.get("Lift2");
         Lift3 = hwMap.dcMotor.get("Lift3");
@@ -112,6 +116,7 @@ public class RR2HardwareDrivebase {
         RB.setPower(0);
         LF.setPower(0);
         Intake.setPower(0);
+        Intake2.setPower(0);
         Lift1.setPower(0);
         Lift2.setPower(0);
         Lift3.setPower(0);
@@ -137,7 +142,7 @@ public class RR2HardwareDrivebase {
         LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
 
         DrivebaseWithEncoders();
-        
+
         Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -189,11 +194,11 @@ public class RR2HardwareDrivebase {
     }
 
     public void DoorOpen() {
-        Door.setPosition(.6);
+        Door.setPosition(.3);
     }
 
     public void DoorClose() {
-        Door.setPosition(1);
+        Door.setPosition(.6);
     }
 
     public void arm(double position, double positionTwo) {
