@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.hardware.PwmControl;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 2900;
+    int LiftMax = 2500;
     int LiftHang = 1420;
     int AutoLiftHang = 1440;
     int LiftMin = 0;
@@ -60,8 +60,8 @@ public class RR2HardwareDrivebase {
 
     /* Public OpMode members. */
     public DcMotor LF, RF, LB, RB, Lift1, Lift2, Lift3, IntakeLift;
-    public Servo Door, Dropper1, Dropper2, HangLatch, Hook, SortLatch, IntakeLatch, IntakeFlipper;
-    public ServoImplEx Bucket;
+    public Servo Door, Dropper1, Dropper2, HangLatch, Hook, SortLatch, IntakeLatch;
+    public ServoImplEx Bucket, IntakeFlipper;
     public CRServo Intake, Intake2;
 
 
@@ -95,7 +95,7 @@ public class RR2HardwareDrivebase {
         HangLatch = hwMap.servo.get("HangLatch");
         Hook = hwMap.servo.get("Hook");
         IntakeLatch = hwMap.servo.get("IntakeLatch");
-        IntakeFlipper = hwMap.servo.get("IntakeFlipper");
+        IntakeFlipper = hwMap.get(ServoImplEx.class, "IntakeFlipper");
         Bucket = hwMap.get(ServoImplEx.class, "Bucket");
         SortLatch = hwMap.servo.get("SortLatch");
 
@@ -184,7 +184,8 @@ public class RR2HardwareDrivebase {
     }
 
 
-    public void ExtendLiftPosition(int liftposition) {
+    public void ExtendLiftPosition(double doubleliftposition) {
+       int liftposition =  (int) Math.round(doubleliftposition *1.33);
         IntakeLift.setTargetPosition(liftposition);
         IntakeLift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
@@ -194,7 +195,7 @@ public class RR2HardwareDrivebase {
     }
 
     public void DoorOpen() {
-        Door.setPosition(.3);
+        Door.setPosition(.25);
     }
 
     public void DoorClose() {

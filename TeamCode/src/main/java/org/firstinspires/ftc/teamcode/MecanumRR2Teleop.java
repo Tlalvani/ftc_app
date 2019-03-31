@@ -127,6 +127,10 @@ public class MecanumRR2Teleop extends OpMode {
             robot.DeployArm();
         }
 
+        if(gamepad2.y){
+            robot.Bucket.setPosition(robot.BucketHome);
+        }
+
         //Latch
         if (gamepad2.dpad_left) {
             robot.latchOff();
@@ -203,22 +207,24 @@ if(gamepad1.right_stick_button){
 
         }
 
-        if(robot.IntakeLift.getCurrentPosition()<150){
+        if(robot.IntakeLift.getCurrentPosition()<100){
             robot.IntakeLatchOpen();
         }
         else{
             robot.IntakeLatchClose();
         }
 
-       if(robot.IntakeLift.getCurrentPosition()<300){
-            robot.IntakeFlipper.setPosition(robot.intakedown);
+       if(robot.IntakeLift.getCurrentPosition()<400){
+           robot.IntakeFlipper.setPosition(robot.intakedown);
+           //robot.IntakeFlipper.setPwmDisable();
         }
 
 
 
         else if(gamepad1.left_bumper||gamepad1.right_bumper){
             if(gamepad1.right_trigger>.1){
-                robot.IntakeFlipper.setPosition(robot.intakedown);
+               robot.IntakeFlipper.setPosition(robot.intakedown);
+                //robot.IntakeFlipper.setPwmDisable();
             }
             else{ robot.IntakeFlipper.setPosition(.65);}
 
@@ -226,6 +232,7 @@ if(gamepad1.right_stick_button){
 
         else{
             robot.IntakeFlipper.setPosition(robot.intakedown);
+          // robot.IntakeFlipper.setPwmDisable();
             robot.IntakeLatchClose();
         }
         telemetry.addData("LF: ", robot.LF.getCurrentPosition());

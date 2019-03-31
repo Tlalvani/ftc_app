@@ -37,7 +37,7 @@ DetectMineral();
 
         FarSample(sample);
 imu(0);
-          RightAngleTurnTargetPosition(2000,2000);
+          RightAngleTurnTargetPosition(1800,1800);
             Drive(0,.2);
             RightDrivebaseBusy();
             Drive(0,0);
