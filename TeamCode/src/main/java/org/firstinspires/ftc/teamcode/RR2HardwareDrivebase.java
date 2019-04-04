@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.hardware.PwmControl;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 2900;
+    int LiftMax = 3300;
     int LiftHang = 1420;
     int AutoLiftHang = 1440;
     int LiftMin = 0;
@@ -261,7 +261,7 @@ public void IntakeLatchOpen(){
     public void autoLiftDown() {
         if (LiftCurrentPosition() > LiftMin+10) {
             Lift(-1);
-            if (LiftCurrentPosition() > LiftMax / 2) {
+            if (LiftCurrentPosition() > LiftMax / 1.2) {
                 Bucket.setPosition(BucketHome);
             } else {
 
