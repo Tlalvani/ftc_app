@@ -27,6 +27,7 @@ import java.util.Locale;
  * RF = Right Front
  */
 
+@Deprecated
 @TeleOp(name = "oldRR2Teleop", group = "RR2")  // @Autonomous(...) is the other common choice
 abstract public class RR2Teleop extends OpMode {
 

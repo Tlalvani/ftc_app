@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-
+@Deprecated
 @Autonomous(name="RR2SampleAuto", group="Test")  // @Autonomous(...) is the other common choice
 public class RR2SampleAuto extends RR2AutoClasses
 {

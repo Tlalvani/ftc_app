@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -14,10 +13,9 @@ import com.qualcomm.robotcore.util.Range;
  * RB = Right Back
  * RF = Right Front
  */
-@Disabled
-@Deprecated
-@TeleOp(name = "MecanumRR2Teleop", group = "RR2")  // @Autonomous(...) is the other common choice
-abstract public class MecanumRR2Teleop extends OpMode {
+
+@TeleOp(name = "RR2Teleop", group = "RR2")  // @Autonomous(...) is the other common choice
+public class WorldsRR2Teleop extends OpMode {
 
     /* local OpMode members. */
     HardwareMap hwMap = null;
@@ -72,7 +70,6 @@ abstract public class MecanumRR2Teleop extends OpMode {
 
 
 
-
         // scale the joystick value to make it easier to control
         // the robot more precisely at slower speeds.
         rightfront = (float) robot.scaleInput(rightfront);
@@ -86,13 +83,14 @@ abstract public class MecanumRR2Teleop extends OpMode {
         robot.LF.setPower(leftfront);
         robot.RB.setPower(rightback);
         robot.LB.setPower(leftback);
+        float intake = gamepad1.right_trigger - gamepad1.left_trigger;
+        intake = Range.clip(intake, -1, 1);
+        robot.Intake.setPower(intake);
         robot.latchOff();
 
 
         //Auto Set when intake runs
         if (gamepad1.right_trigger > .1) {
-            robot.Intake.setPower(-.75);
-      //      robot.Intake2.setPower(-.75);
             if(robot.LiftCurrentPosition() < 100){
                 robot.DoorOpen();
                 robot.RetractArm();
@@ -100,14 +98,7 @@ abstract public class MecanumRR2Teleop extends OpMode {
                 robot.SortLatch.setPosition(robot.SortLatchClose);
             }
         }
-        else if(gamepad1.left_trigger>.1){
-            robot.Intake.setPower(.75);
-       //     robot.Intake2.setPower(.75);
-        }
-        else{
-            robot.Intake.setPower(0);
-          //  robot.Intake2.setPower(0);
-        }
+
         //Sort Latch
         if (gamepad1.b) {
             robot.DoorClose();
@@ -189,14 +180,10 @@ abstract public class MecanumRR2Teleop extends OpMode {
             robot.Hook.setPosition(1);
         }
 
-if(gamepad1.right_stick_button){
-            robot.Bucket.setPosition(.05);
-}
         //Extending Intake
 
         if(gamepad1.left_bumper && gamepad1.right_bumper){
-            robot.IntakeLift.setPower(0);
-            robot.IntakeFlipper.setPosition(.65);
+
         }
        else if(gamepad1.right_bumper){
             robot.IntakeLift.setPower(1);
@@ -210,34 +197,25 @@ if(gamepad1.right_stick_button){
 
         }
 
-        if(robot.IntakeLift.getCurrentPosition()<100){
+        if(gamepad1.right_trigger > .1 || gamepad1.left_trigger > .1) {
+            robot.IntakeFlipper.setPosition(robot.intakedown);
+        }
+      else  if(robot.IntakeLift.getCurrentPosition()<100){
+            robot.IntakeFlipper.setPosition(robot.intakedeposit);
+        }
+
+        else{
+            robot.IntakeFlipper.setPosition(robot.intakeup);
+
+        }
+
+       if(robot.IntakeLift.getCurrentPosition()<400){
             robot.IntakeLatchOpen();
         }
         else{
             robot.IntakeLatchClose();
         }
 
-       if(robot.IntakeLift.getCurrentPosition()<400){
-           robot.IntakeFlipper.setPosition(robot.intakedown);
-           //robot.IntakeFlipper.setPwmDisable();
-        }
-
-
-
-        else if(gamepad1.left_bumper||gamepad1.right_bumper){
-            if(gamepad1.right_trigger>.1){
-               robot.IntakeFlipper.setPosition(robot.intakedown);
-                //robot.IntakeFlipper.setPwmDisable();
-            }
-            else{ robot.IntakeFlipper.setPosition(.65);}
-
-        }
-
-        else{
-            robot.IntakeFlipper.setPosition(robot.intakedown);
-          // robot.IntakeFlipper.setPwmDisable();
-            robot.IntakeLatchClose();
-        }
         telemetry.addData("LF: ", robot.LF.getCurrentPosition());
         telemetry.addData("LB: ", robot.LB.getCurrentPosition());
         telemetry.addData("RF: ", robot.RF.getCurrentPosition());

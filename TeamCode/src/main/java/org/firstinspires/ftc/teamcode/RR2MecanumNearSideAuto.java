@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-
-@Autonomous(name="RR2NearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
-public class RR2MecanumNearSideAuto extends RR2AutoClasses
+@Deprecated
+@Autonomous(name="RR2MecanumNearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
+abstract public class RR2MecanumNearSideAuto extends RR2AutoClasses
 {
 
 
@@ -14,6 +16,7 @@ public class RR2MecanumNearSideAuto extends RR2AutoClasses
 
     @Override
     public void runOpMode() throws InterruptedException {
+        Servo Intake2;
 initSensors();
 DetectMineral();
 
@@ -40,7 +43,7 @@ DetectMineral();
             robot.IntakeLift.setPower(1);
             IntakeLiftBusy();
             robot.IntakeLift.setPower(0);
-            robot.IntakeFlipper.setPosition(.65);
+            robot.IntakeFlipper.setPosition(.75);
 
             DriveTargetPosition(1000,1000,1000,1000);
             Drive(.2,.2);
@@ -49,9 +52,10 @@ DetectMineral();
 
             robot.IntakeFlipper.setPosition(robot.intakedown);
             robot.Intake.setPower(.75);
-            robot.Intake2.setPower(.75);
+          //  robot.Intake2.setPower(.75);
             sleep(2000);
-            robot.IntakeFlipper.setPosition(.65);
+            robot.IntakeFlipper.setPosition(.75);
+            sleep(2000);
 
             DriveTargetPosition(-1050,-1050,-1050,-1050);
             Drive(.2,.2);
@@ -61,7 +65,7 @@ DetectMineral();
 
             robot.IntakeFlipper.setPosition(robot.intakedown);
             robot.Intake.setPower(0);
-            robot.Intake2.setPower(0);
+          //  robot.Intake2.setPower(0);
             sleep(1000);
             robot.ExtendLiftPosition(250);
             robot.IntakeLift.setPower(1);
@@ -81,7 +85,7 @@ DetectMineral();
             DrivebaseBusy();
             Drive(0,0);
 
-            RightAngleTurnTargetPosition(2000,2000);
+            RightAngleTurnTargetPosition(1800,1800);
             Drive(0, .2);
             RightDrivebaseBusy();
             Drive(0,0);
@@ -92,13 +96,13 @@ DetectMineral();
             Drive(0,0);
 
 
-            RightAngleTurnTargetPosition(700,700);
+            RightAngleTurnTargetPosition(400,400);
             Drive(0,.2);
             RightDrivebaseBusy();
             Drive(0,0);
 
 
-            DriveTargetPosition(300,300,300,300);
+            DriveTargetPosition(100,100,100,100);
             Drive(.4,.4);
             DrivebaseBusy();
             Drive(0,0);

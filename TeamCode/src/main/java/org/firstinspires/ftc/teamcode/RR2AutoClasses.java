@@ -181,7 +181,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
 
     public void BusyLift() {
-        while (robot.Lift1.isBusy() & robot.Lift2.isBusy() & robot.Lift3.isBusy() & opModeIsActive()) {
+        while (robot.Lift1.isBusy() & robot.Lift2.isBusy() /* & robot.Lift3.isBusy()*/ & opModeIsActive()) {
         }
     }
 
@@ -194,14 +194,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
     }
 
     public void DepositTeamMarker(){
-      /*  robot.ExtendLiftPosition(200);
-        robot.IntakeLift.setPower(1);
-        IntakeLiftBusy();
-        robot.IntakeLift.setPower(0);
-        sleep(1000);
-        robot.IntakeFlipper.setPosition(.65);
-        sleep(1000);
-        */
+
         robot.IntakeFlipper.setPosition(robot.intakedown);
         robot.ExtendLiftPosition(900);
         robot.IntakeLift.setPower(1);
@@ -210,16 +203,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         robot.IntakeFlipper.setPosition(robot.intakedown);
         robot.Intake.setPower(.75);
         sleep(2000);
-     //   robot.IntakeFlipper.setPosition(.65);
         robot.Intake.setPower(0);
-     /*   robot.ExtendLiftPosition(150);
-        robot.IntakeLift.setPower(1);
-        IntakeLiftBusy();
-        robot.IntakeLift.setPower(0);
-        robot.IntakeFlipper.setPosition(.15);
-        sleep(500);
-        */
-
         robot.ExtendLiftPosition(0);
         robot.IntakeLift.setPower(1);
         IntakeLiftBusy();
@@ -232,7 +216,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
         sleep(1200);
         robot.Lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.Lift2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.Lift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // robot.Lift3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.LiftPosition(robot.AutoLiftHang);
         robot.Lift(.75);
         BusyLift();

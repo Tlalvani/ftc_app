@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+@Deprecated
 @Disabled
 @Autonomous(name="oldRR2FarSideAuto", group="Test")  // @Autonomous(...) is the other common choice
 public class RR2FarSideAuto extends RR2AutoClasses
