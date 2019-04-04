@@ -60,6 +60,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         DcMotor Intake;
         DcMotor RW;
         DcMotor LW;
+
+
     }
 
 
@@ -71,7 +73,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
     @Override
     public void init() {
         /* Initialize the hardware variables.
-            */
+
+         */
         LB = hardwareMap.dcMotor.get("LB");
         LF = hardwareMap.dcMotor.get("LF");
         RF = hardwareMap.dcMotor.get("RF");
@@ -85,7 +88,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
 
 
         // Send telemetry message to signify robot waiting;
-
+        ;
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -107,16 +110,16 @@ public class PushbotTeleopTank_Iterative extends OpMode{
     @Override
     public void loop() {
 
-        RB.setPower(gamepad1_left_stick_y+gamepad1_right_stick_x);
-        LB.setPower(gamepad1_left_stick_y+gamepad1_right_stick_x);
-        RF.setPower(gamepad1_left_stick_y+gamepad1_right_stick_x);
-        LF.setPower(gamepad1_left_stick_y+gamepad1_right_stick_x);
-        Intake.setPower(gamepad1_left_bumper);
-        LW.setPower(gamepad1.a);
-        RW.setPower(gamepad1.a);
-    }
+        RB.setPower(gamepad1_left_stick_y);
+        LB.setPower(gamepad1_left_stick_y);
+        RF.setPower(gamepad1_left_stick_y);
+        LF.setPower(gamepad1_left_stick_y);
+        LF.setPower(gamepad1_right_stick_x);
+        LB.setPower(gamepad1_right_stick_x);
+        RB.setPower(gamepad1_right_stick_x);
+        RF.setPower(gamepad1_right_stick_x);
+
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-  
         // Use gamepad left & right Bumpers to open and close the claw
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
@@ -124,6 +127,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         // Use gamepad buttons to move the arm up (Y) and down (A)
 
         // Send telemetry message to signify robot running;
+        ;
 
     /*
      * Code to run ONCE after the driver hits STOP
