@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.hardware.PwmControl;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 3000;
+    int LiftMax = 3500;
     int LiftHang = 1420;
     int AutoLiftHang = 1440;
     int LiftMin = 0;
@@ -35,7 +35,7 @@ public class RR2HardwareDrivebase {
     double BucketDeploy = .1;
 
     double intakedown = .4;
-    double intakeup = .6;
+    double intakeup = .75;
     double intakedeposit = .9;
 
   /*  //IMU VALUES
@@ -224,7 +224,7 @@ public void IntakeLatchOpen(){
     }
 
     public void RetractArm() {
-        arm(0.09, 0.91);
+        arm(0.1, 0.9);
     }
 
     public void latchOn() {
@@ -263,8 +263,9 @@ public void IntakeLatchOpen(){
     }
 
     public void autoLiftDown() {
+
         if (LiftCurrentPosition() > LiftMin+10) {
-            Lift(-1);
+            Lift(-.75);
             if (LiftCurrentPosition() > LiftMax / 1.2) {
                 Bucket.setPosition(BucketHome);
             } else {

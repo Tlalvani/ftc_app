@@ -50,7 +50,7 @@ public class WorldsRR2Teleop extends OpMode {
      */
     @Override
     public void loop() {
-        float Ch1 = gamepad1.right_stick_x;
+        float Ch1 = (gamepad1.right_stick_x*gamepad1.right_stick_x*gamepad1.right_stick_x);
         float Ch3 = -gamepad1.left_stick_y;
         float Ch4 = gamepad1.left_stick_x;
 
@@ -83,6 +83,7 @@ public class WorldsRR2Teleop extends OpMode {
         robot.LF.setPower(leftfront);
         robot.RB.setPower(rightback);
         robot.LB.setPower(leftback);
+
         float intake = gamepad1.right_trigger - gamepad1.left_trigger;
         intake = Range.clip(intake, -1, 1);
         robot.Intake.setPower(intake);
@@ -192,6 +193,15 @@ public class WorldsRR2Teleop extends OpMode {
             robot.IntakeLift.setPower(-1);
 
         }
+
+       else if(robot.AutoLiftingDown) {
+            if (robot.IntakeLift.getCurrentPosition() < 150) {
+                robot.IntakeLift.setPower(.5);
+            }
+            else{
+                robot.IntakeLift.setPower(0);
+            }
+        }
         else{
             robot.IntakeLift.setPower(0);
 
@@ -209,7 +219,7 @@ public class WorldsRR2Teleop extends OpMode {
 
         }
 
-       if(robot.IntakeLift.getCurrentPosition()<400){
+       if(robot.IntakeLift.getCurrentPosition()<600){
             robot.IntakeLatchOpen();
         }
         else{
