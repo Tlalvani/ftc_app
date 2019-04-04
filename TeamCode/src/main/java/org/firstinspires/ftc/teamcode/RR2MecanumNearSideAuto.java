@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-
-@Autonomous(name="RR2NearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
-public class RR2MecanumNearSideAuto extends RR2AutoClasses
+@Deprecated
+@Autonomous(name="RR2MecanumNearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
+abstract public class RR2MecanumNearSideAuto extends RR2AutoClasses
 {
 
 
@@ -14,6 +16,7 @@ public class RR2MecanumNearSideAuto extends RR2AutoClasses
 
     @Override
     public void runOpMode() throws InterruptedException {
+        Servo Intake2;
 initSensors();
 DetectMineral();
 
@@ -49,7 +52,7 @@ DetectMineral();
 
             robot.IntakeFlipper.setPosition(robot.intakedown);
             robot.Intake.setPower(.75);
-            robot.Intake2.setPower(.75);
+          //  robot.Intake2.setPower(.75);
             sleep(2000);
             robot.IntakeFlipper.setPosition(.75);
             sleep(2000);
@@ -62,7 +65,7 @@ DetectMineral();
 
             robot.IntakeFlipper.setPosition(robot.intakedown);
             robot.Intake.setPower(0);
-            robot.Intake2.setPower(0);
+          //  robot.Intake2.setPower(0);
             sleep(1000);
             robot.ExtendLiftPosition(250);
             robot.IntakeLift.setPower(1);

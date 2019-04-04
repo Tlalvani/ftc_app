@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-
+@Deprecated
+@Disabled
 @Autonomous(name="RR2DoubleSampleFarSideAuto", group="Test")  // @Autonomous(...) is the other common choice
 public class RR2FarSideDoubleSampleAuto extends RR2AutoClasses
 {

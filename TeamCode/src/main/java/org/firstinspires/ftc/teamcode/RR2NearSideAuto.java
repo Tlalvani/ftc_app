@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+@Deprecated
 @Disabled
 @Autonomous(name="RR2oldNearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
 public class RR2NearSideAuto extends RR2AutoClasses

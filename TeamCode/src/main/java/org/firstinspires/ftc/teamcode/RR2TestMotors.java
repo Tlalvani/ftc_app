@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.Range;
  * RB = Right Back
  * RF = Right Front
  */
-
+@Deprecated
 @TeleOp(name = "RR2MotorTest", group = "RR2")  // @Autonomous(...) is the other common choice
 public class RR2TestMotors extends OpMode {
 
@@ -57,12 +57,12 @@ public class RR2TestMotors extends OpMode {
             robot.Lift2.setPower(1);
         }
         else if (gamepad1.x){
-            robot.Lift3.setPower(1);
+     //       robot.Lift3.setPower(1);
         }
         else{
             robot.Lift1.setPower(0);
             robot.Lift2.setPower(0);
-            robot.Lift3.setPower(0);
+       //     robot.Lift3.setPower(0);
         }
         telemetry.addData("LF: ", robot.LF.getCurrentPosition());
         telemetry.addData("LB: ", robot.LB.getCurrentPosition());
