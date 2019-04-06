@@ -96,7 +96,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
     public void initSensors() {
         robot.init(hardwareMap);
-
+        robot.IntakeFlipper.setPosition(robot.intakeup);
         robot.latchOn();
         robot.Bucket.setPosition(robot.BucketHome);
 
@@ -183,6 +183,8 @@ abstract public class RR2AutoClasses extends LinearOpMode {
     public void BusyLift() {
         while (robot.Lift1.isBusy() & robot.Lift2.isBusy() /* & robot.Lift3.isBusy()*/ & opModeIsActive()) {
         }
+        robot.Lift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.Lift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void DriveFromLander(){
@@ -504,7 +506,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
 
     }
     */
-  public void Sample(int value){
+  /*public void Sample(int value){
       robot.Intake.setPower(-.75);
       robot.IntakeLatchClose();
       int sample = value;
@@ -534,24 +536,181 @@ abstract public class RR2AutoClasses extends LinearOpMode {
           telemetry.update();
 
       }
+*/
 
-    //  robot.Intake.setPower(-.75);
-      robot.IntakeFlipper.setPosition(robot.intakedown);
-      robot.ExtendLiftPosition(1300); //1100
-      robot.IntakeLift.setPower(1);
-      IntakeLiftBusy();
-      robot.IntakeLift.setPower(0);
-      sleep(1000);
-      robot.ExtendLiftPosition(0);
-      robot.IntakeLift.setPower(1);
-      IntakeLiftBusy();
-      robot.IntakeLift.setPower(0);
-      robot.Intake.setPower(0);
-    //  robot.Intake.setPower(0);
+    public void Sample(int value){
+        robot.Intake.setPower(1);
+        robot.IntakeLatchClose();
+
+
+
+        int sample = value;
+
+        if(sample==1){
+
+            DriveTargetPosition(-600,600,600,-600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            robot.IntakeFlipper.setPosition(robot.intakedown);
+            robot.ExtendLiftPosition(1000); //1100
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            robot.IntakeLatchOpen();
+            robot.DoorOpen();
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            robot.Intake.setPower(0);
+
+            robot.IntakeFlipper.setPosition(robot.intakedeposit);
+
+            DriveTargetPosition(600,-600,-600,600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+
+        }
+        else if (sample==2)
+        {
+            DriveTargetPosition(600,-600,-600,600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            robot.IntakeFlipper.setPosition(robot.intakedown);
+            robot.ExtendLiftPosition(1000); //1100
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            robot.IntakeLatchOpen();
+            robot.DoorOpen();
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            robot.Intake.setPower(0);
+            robot.IntakeFlipper.setPosition(robot.intakedeposit);
+
+            DriveTargetPosition(-600,600,600,-600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+        }
+        else{
+
+            imu(0);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+
+            robot.IntakeFlipper.setPosition(robot.intakedown);
+            robot.ExtendLiftPosition(1000); //1100
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            robot.IntakeLatchOpen();
+            robot.DoorOpen();
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            robot.Intake.setPower(0);
+            robot.IntakeFlipper.setPosition(robot.intakedeposit);
+
+        }
+
+
 
   }
 
     public void FarSample(int value){
+        int sample = value;
+robot.IntakeFlipper.setPosition(robot.intakedown);
+        if(sample==1){
+
+            DriveTargetPosition(-600,600,600,-600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+            robot.ExtendLiftPosition(600); //850
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+
+            DriveTargetPosition(600,-600,-600,600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+
+        }
+        else if (sample==2)
+        {
+            DriveTargetPosition(600,-600,-600,600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+            //  robot.IntakeFlipper.setPosition(robot.intakedown);
+            robot.ExtendLiftPosition(600); //850
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            sleep(1000);
+
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+
+            DriveTargetPosition(-600,600,600,-600);
+            Drive(.2,.2);
+            DrivebaseBusy();
+            Drive(0,0);
+
+
+
+        }
+        else{
+            imu(0);
+            telemetry.addData("value:", sample);
+            telemetry.update();
+            // robot.IntakeFlipper.setPosition(robot.intakedown);
+            robot.ExtendLiftPosition(600); //850
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+            sleep(1000);
+            robot.ExtendLiftPosition(0);
+            robot.IntakeLift.setPower(1);
+            IntakeLiftBusy();
+            robot.IntakeLift.setPower(0);
+
+        }
+
+
+   /* public void FarSample(int value){
         int sample = value;
 
         if(sample==1){
@@ -630,7 +789,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
             robot.IntakeLift.setPower(0);
 
         }
-
+*/
         //  robot.Intake.setPower(-.75);
 
         //  robot.Intake.setPower(0);

@@ -23,9 +23,9 @@ import com.qualcomm.robotcore.hardware.PwmControl;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 3500;
-    int LiftHang = 1420;
-    int AutoLiftHang = 1440;
+    int LiftMax = 3850;
+    int LiftHang = 2300;
+    int AutoLiftHang = 1500;
     int LiftMin = 0;
 
     double SortLatchClose = .73;
@@ -38,6 +38,7 @@ public class RR2HardwareDrivebase {
     double intakeup = .75;
     double intakedeposit = .9;
 
+  /*  //IMU VALUES
   /*  //IMU VALUES
     double divisorforimu = 10;
     double maxspeedimu = .5;
@@ -138,16 +139,18 @@ public class RR2HardwareDrivebase {
         IntakeLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-/*
+
         LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); */
+        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        DrivebaseWithEncoders();
+   //     DrivebaseWithEncoders();
 
-        Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      /*  Lift1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Lift2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
+        Lift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        Lift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
      //   Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         IntakeLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -228,11 +231,11 @@ public void IntakeLatchOpen(){
     }
 
     public void latchOn() {
-        HangLatch.setPosition(.6);
+        HangLatch.setPosition(1);
     }
 
     public void latchOff() {
-        HangLatch.setPosition(0.35);
+        HangLatch.setPosition(0);
     }
 
     public void autoLiftUp() {

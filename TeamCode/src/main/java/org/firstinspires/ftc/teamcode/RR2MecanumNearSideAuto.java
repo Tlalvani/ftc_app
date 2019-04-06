@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
+@Disabled
 @Deprecated
 @Autonomous(name="RR2MecanumNearSideAuto", group="Test")  // @Autonomous(...) is the other common choice
 abstract public class RR2MecanumNearSideAuto extends RR2AutoClasses
