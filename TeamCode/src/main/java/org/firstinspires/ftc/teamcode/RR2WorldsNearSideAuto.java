@@ -36,12 +36,14 @@ DetectMineral();
             DrivebaseBusy();
             Drive(0,0);
 
+            ZeroLift();
+
             robot.ExtendLiftPosition(150);
             robot.IntakeLift.setPower(1);
             IntakeLiftBusy();
             robot.IntakeLift.setPower(0);
 
-            ZeroLift();
+
 
             robot.ExtendLiftPosition(1200);
             robot.IntakeLift.setPower(1);
@@ -49,7 +51,7 @@ DetectMineral();
             robot.IntakeLift.setPower(0);
             sleep(1000);
             robot.IntakeFlipper.setPosition(robot.intakedown);
-            robot.Intake.setPower(.5);
+            robot.Intake.setPower(-1);
             sleep(2000);
             robot.Intake.setPower(0);
             robot.IntakeFlipper.setPosition(robot.intakeup);
@@ -67,7 +69,7 @@ DetectMineral();
             Sample(sample);
 
             sleep(1000);
-
+robot.Intake.setPower(0);
 
             robot.AutoLiftingUp = true;
 

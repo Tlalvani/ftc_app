@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,8 +14,8 @@ import com.qualcomm.robotcore.util.Range;
  * RF = Right Front
  */
 
-@TeleOp(name = "RR2Teleop", group = "RR2")  // @Autonomous(...) is the other common choice
-public class WorldsRR2Teleop extends OpMode {
+@TeleOp(name = "RR2IntakeTest", group = "RR2")  // @Autonomous(...) is the other common choice
+public class WorldsRR2IntakeTest extends OpMode {
 
     /* local OpMode members. */
     HardwareMap hwMap = null;
@@ -31,10 +30,7 @@ public class WorldsRR2Teleop extends OpMode {
     public void init() {
 
         robot.init(hardwareMap);
-        robot.LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     /*
@@ -91,14 +87,13 @@ public class WorldsRR2Teleop extends OpMode {
         float intake = gamepad1.right_trigger - gamepad1.left_trigger;
         intake = Range.clip(intake, -1, 1);
 
-        if(gamepad1.right_trigger > .1 || gamepad1.left_trigger > .1) {
-            robot.IntakeFlipper.setPosition(robot.intakedown);
-        }
-
-        else if (!robot.digitalTouch.getState() && robot.IntakeLift.getCurrentPosition() != 0) {
+        if (!robot.digitalTouch.getState() && robot.IntakeLift.getCurrentPosition() != 0) {
             robot.IntakeLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.IntakeLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
 
+        if(gamepad1.right_trigger > .1 || gamepad1.left_trigger > .1) {
+            robot.IntakeFlipper.setPosition(robot.intakedown);
         }
 
         else  if(robot.IntakeLift.getCurrentPosition()<robot.intakethreshhold){
@@ -110,116 +105,12 @@ public class WorldsRR2Teleop extends OpMode {
 
         }
 
-        robot.latchOff();
-
-        if(robot.IntakeLift.getCurrentPosition() < robot.intakethreshhold/2 && !robot.AutoLiftingUp && !robot.Hanging & !robot.Liftedup){
-            robot.Intake.setPower(.5);
-        }
-        else {
-            robot.Intake.setPower(intake);
-        }
-
-        //Auto Set when intake runs
-        if (gamepad1.right_trigger > .1) {
-            if(robot.LiftCurrentPosition() < 100){
-                robot.DoorOpen();
-                robot.RetractArm();
-                robot.Bucket.setPosition(robot.BucketHome);
-                robot.SortLatch.setPosition(robot.SortLatchClose);
-            }
-        }
-
-        //Sort Latch
-        if (gamepad1.b) {
-            robot.DoorClose();
-            robot.SortLatch.setPosition(robot.SortLatchClose);
-        }
-
-        if (gamepad1.a) {
-            robot.SortLatch.setPosition(robot.SortLatchOpen);
-            robot.DoorOpen();
-        }
-
-        if (gamepad2.a){
-            robot.DoorOpen();
-        }
-
-        //Servo Arm Deploy
-        if (gamepad2.left_bumper) {
-            robot.RetractArm();
-        } else if (gamepad2.right_bumper) {
-            robot.DeployArm();
-        }
-
-        if(gamepad2.y){
-            robot.Bucket.setPosition(robot.BucketHome);
-        }
-
-        //Latch
-        if (gamepad2.dpad_left) {
-            robot.latchOff();
-        } else if (gamepad2.dpad_right) {
-            robot.latchOn();
-        }
-
-        //Lift
-
-        if (gamepad1.x){
-            robot.AutoLiftingDown = true;
-            robot.AutoLiftingUp = false;
-            robot.Hanging = false;
-        }
-        else if (gamepad1.y) {
-            robot.AutoLiftingUp = true;
-            robot.AutoLiftingDown = false;
-            robot.Hanging = false;
-        }
-
-        else if (gamepad1.dpad_up) {
-            robot.Lift(1);
-            robot.AutoLiftingUp = false;
-            robot.AutoLiftingDown = false;
-            robot.Hanging = true;
-            robot.Hook.setPosition(0);
-           // robot.Bucket.setPwmDisable();
-        }
-
-        else if (gamepad2.x || gamepad1.dpad_right) {
-            robot.hangLiftUp();
-            robot.Hanging = true;
-            robot.Hook.setPosition(0);
-           // robot.Bucket.setPwmDisable();
-            robot.AutoLiftingDown = false;
-            robot.AutoLiftingUp = false;
-
-        }
-        else if (gamepad1.dpad_left) {
-            robot.Lift(-1);
-            robot.AutoLiftingDown = false;
-            robot.AutoLiftingUp = false;
-        }
-
-        else if(robot.AutoLiftingDown){
-            robot.autoLiftDown();
-        }
-
-        else if(robot.AutoLiftingUp){
-            robot.DeployArm();
-            robot.autoLiftUp();
-
-        }
-
-        else {
-            robot.Lift((gamepad2.right_trigger) - gamepad2.left_trigger);
-            robot.Hook.setPosition(1);
-        }
-
         //Extending Intake
 
         if(gamepad1.left_bumper && gamepad1.right_bumper){
 
         }
-       else if(gamepad1.right_bumper){
+        else if(gamepad1.right_bumper){
             robot.IntakeLift.setPower(1);
         }
         else if (gamepad1.left_bumper){
@@ -229,7 +120,7 @@ public class WorldsRR2Teleop extends OpMode {
 
 
 
-       else if(robot.AutoLiftingDown || robot.AutoLiftingUp) {
+        else if(robot.AutoLiftingDown || robot.AutoLiftingUp) {
             if (robot.IntakeLift.getCurrentPosition() < 150) {
                 robot.IntakeLift.setPower(.5);
             }
@@ -244,12 +135,21 @@ public class WorldsRR2Teleop extends OpMode {
 
 
 
-       if(robot.IntakeLift.getCurrentPosition()<600){
+        if(robot.IntakeLift.getCurrentPosition()<650){
             robot.IntakeLatchOpen();
         }
         else{
             robot.IntakeLatchClose();
         }
+
+        if(robot.IntakeLift.getCurrentPosition() < robot.intakethreshhold && !robot.AutoLiftingUp && !robot.Hanging & !robot.Liftedup){
+            robot.Intake.setPower(.5);
+        }
+        else {
+            robot.Intake.setPower(intake);
+        }
+
+
 
         telemetry.addData("LF: ", robot.LF.getCurrentPosition());
         telemetry.addData("LB: ", robot.LB.getCurrentPosition());

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -23,7 +24,7 @@ import com.qualcomm.robotcore.hardware.PwmControl;
  */
 public class RR2HardwareDrivebase {
     //Lift Values
-    int LiftMax = 3850;
+    int LiftMax = 4000;
     int LiftHang = 2300;
     int AutoLiftHang = 1500;
     int LiftMin = 0;
@@ -32,11 +33,13 @@ public class RR2HardwareDrivebase {
     double SortLatchOpen = .3;
 
     double BucketHome = .8;
-    double BucketDeploy = .1;
+    double BucketDeploy = .07;
 
     double intakedown = .4;
     double intakeup = .75;
     double intakedeposit = .9;
+
+    double intakethreshhold = 100;
 
   /*  //IMU VALUES
   /*  //IMU VALUES
@@ -58,6 +61,8 @@ public class RR2HardwareDrivebase {
     boolean AutoLiftingUp = false;
     boolean AutoLiftingDown = false;
 
+    boolean Hanging = false;
+
     boolean Liftedup = false;
     boolean Liftdown = false;
 
@@ -65,7 +70,9 @@ public class RR2HardwareDrivebase {
     public DcMotor LF, RF, LB, RB, Lift1, Lift2, Intake, IntakeLift;
     public Servo Door, Dropper1, Dropper2, HangLatch, Hook, SortLatch, IntakeLatch;
     public ServoImplEx Bucket, IntakeFlipper;
-   // public CRServo Intake, Intake2;
+    public DigitalChannel digitalTouch;  // Hardware Device Object
+
+    // public CRServo Intake, Intake2;
 
 
     /* local OpMode members. */
@@ -102,6 +109,12 @@ public class RR2HardwareDrivebase {
         Bucket = hwMap.get(ServoImplEx.class, "Bucket");
         SortLatch = hwMap.servo.get("SortLatch");
 
+
+        // get a reference to our digitalTouch object.
+        digitalTouch = hwMap.get(DigitalChannel.class, "sensor_digital");
+
+        // set the digital channel to input.
+        digitalTouch.setMode(DigitalChannel.Mode.INPUT);
 
         LB.setDirection(DcMotor.Direction.REVERSE);
         LF.setDirection(DcMotor.Direction.REVERSE);
@@ -152,7 +165,9 @@ public class RR2HardwareDrivebase {
         Lift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Lift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
      //   Lift3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        IntakeLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       // IntakeLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        IntakeLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -223,7 +238,7 @@ public void IntakeLatchOpen(){
     }
 
     public void IntakeLatchClose(){
-        IntakeLatch.setPosition(.3);
+        IntakeLatch.setPosition(.4);
     }
 
     public void RetractArm() {
@@ -253,6 +268,7 @@ public void IntakeLatchOpen(){
         } else {
             Lift(0);
             AutoLiftingUp = false;
+            Liftedup = true;
         }
     }
 
@@ -281,6 +297,7 @@ public void IntakeLatchOpen(){
         } else {
             Lift(0);
             AutoLiftingDown = false;
+            Liftedup = false;
         }
     }
 

@@ -71,7 +71,7 @@ DetectMineral();
             IntakeLiftBusy();
             robot.IntakeLift.setPower(0);
             robot.IntakeFlipper.setPosition(robot.intakedown);
-            robot.Intake.setPower(.5);
+            robot.Intake.setPower(-1);
 
             sleep(1000);
 

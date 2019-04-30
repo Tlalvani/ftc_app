@@ -568,6 +568,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
             robot.Intake.setPower(0);
 
             robot.IntakeFlipper.setPosition(robot.intakedeposit);
+            robot.Intake.setPower(.5);
 
             DriveTargetPosition(600,-600,-600,600);
             Drive(.2,.2);
@@ -600,6 +601,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
             robot.IntakeLift.setPower(0);
             robot.Intake.setPower(0);
             robot.IntakeFlipper.setPosition(robot.intakedeposit);
+            robot.Intake.setPower(.5);
 
             DriveTargetPosition(-600,600,600,-600);
             Drive(.2,.2);
@@ -630,6 +632,7 @@ abstract public class RR2AutoClasses extends LinearOpMode {
             robot.IntakeLift.setPower(0);
             robot.Intake.setPower(0);
             robot.IntakeFlipper.setPosition(robot.intakedeposit);
+            robot.Intake.setPower(.5);
 
         }
 
